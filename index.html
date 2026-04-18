@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
 <style>
-  /* ── DESIGN TOKENS ─────────────────────────────── */
   :root {
     --bg:        #070b1f;
     --bg2:       #0d1330;
@@ -140,7 +139,7 @@
   .hamburger.active span:nth-child(2) { opacity: 0; }
   .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* ── MOBILE MENU — FIXED SLIDE FROM RIGHT ────────── */
+  /* ── MOBILE MENU ────────────────────────────────── */
   .mobile-menu {
     position: fixed;
     right: 0; top: 0;
@@ -205,7 +204,7 @@
     border-top: 1px solid var(--border);
     flex-shrink: 0;
   }
-  .mobile-menu-footer .btn { width: 100%; justify-content: center; font-size: .9rem; }
+  .mobile-menu-footer .btn { width: 100%; justify-content: center; }
   .mobile-overlay {
     position: fixed; inset: 0; z-index: 1000;
     background: rgba(0,0,0,.5);
@@ -323,14 +322,6 @@
   #welcomeOverlay.show .welcome-title { opacity: 1; transform: translateY(0); }
   #welcomeOverlay.show .welcome-sub   { opacity: 1; }
 
-  /* ── NIGHT FIREWORKS ────────────────────────────── */
-  #fireworksCanvas {
-    position: fixed; inset: 0; z-index: 9998;
-    pointer-events: none;
-    opacity: 0; transition: opacity 1s ease;
-  }
-  #fireworksCanvas.show { opacity: 1; }
-
   /* ── ABOUT ──────────────────────────────────────── */
   #about { background: var(--bg2); }
   .about-grid { display: grid; grid-template-columns: 1fr; gap: 0; align-items: center; }
@@ -378,7 +369,7 @@
   .skill-bar-wrap { height: 5px; background: rgba(255,255,255,.08); border-radius: 99px; overflow: hidden; }
   .skill-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 99px; transition: width 1.2s ease; width: 0; }
 
-  /* ── SERVICES ─── what we offer — RTL marquee ───── */
+  /* ── SERVICES ─── marquee ───── */
   #services { background: var(--bg2); overflow: hidden; }
   .services-marquee-wrapper {
     position: relative; overflow: hidden;
@@ -394,7 +385,6 @@
     will-change: transform;
   }
   .services-marquee-track:hover { animation-play-state: paused; }
-  /* reverse direction when scrolling up — handled via JS class */
   .services-marquee-track.reverse { animation-direction: reverse; }
   @keyframes marqueeRTL {
     0%   { transform: translateX(0); }
@@ -593,13 +583,6 @@
   .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
   .testi-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 28px 26px; display: flex; flex-direction: column; gap: 18px; transition: transform .35s ease, border-color .35s ease; position: relative; }
   .testi-card:hover { transform: translateY(-6px); border-color: var(--accent); }
-  .testi-quote-icon { font-size: 2.2rem; line-height: 1; color: var(--accent); opacity: .5; }
-  .testi-text { font-size: .92rem; color: var(--text); line-height: 1.75; flex: 1; font-style: italic; }
-  .testi-stars { display: flex; gap: 3px; color: var(--accent3); font-size: .95rem; }
-  .testi-author { display: flex; align-items: center; gap: 14px; padding-top: 16px; border-top: 1px solid var(--border); }
-  .testi-avatar { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; background: linear-gradient(135deg, rgba(52,213,255,.1), rgba(139,92,246,.12)); border: 1px solid rgba(52,213,255,.2); flex-shrink: 0; }
-  .testi-name  { font-family: var(--font-head); font-weight: 700; font-size: .9rem; margin-bottom: 2px; }
-  .testi-role  { font-size: .76rem; color: var(--muted); }
 
   /* ── RESPONSIVE ──────────────────────────────────── */
   @media (max-width: 1024px) {
@@ -699,7 +682,7 @@
     .project-footer{ padding: 9px 10px; }
     .project-title { font-size: .78rem; }
     .project-skill { font-size: .58rem; padding: 4px 7px; }
-    .project-link  { font-size: .72rem; }
+        .project-link  { font-size: .72rem; }
     .project-badge { font-size: .54rem; padding: 4px 9px; top:9px; left:9px; }
     .team-card { padding: 18px 10px 14px; }
     .team-avatar { width: 62px; height: 62px; font-size: 1.4rem; margin-bottom: 12px; }
@@ -722,9 +705,6 @@
 </style>
 </head>
 <body>
-
-<!-- ══ FIREWORKS CANVAS ════════════════════════════ -->
-<canvas id="fireworksCanvas"></canvas>
 
 <!-- ══ WELCOME OVERLAY ════════════════════════════ -->
 <div id="welcomeOverlay">
@@ -882,11 +862,8 @@
     <h2 class="section-title reveal">What We <span class="grad-text">Offer</span></h2>
     <p class="section-sub reveal">Full-stack web development solutions tailored to your business needs.</p>
   </div>
-  <!-- Marquee OUTSIDE container to go full-width -->
   <div class="services-marquee-wrapper" id="servicesMarquee">
-    <div class="services-marquee-track" id="servicesTrack">
-      <!-- populated by JS — doubled for seamless loop -->
-    </div>
+    <div class="services-marquee-track" id="servicesTrack"></div>
   </div>
 </section>
 
@@ -1229,7 +1206,6 @@ function renderServices() {
       <div class="svc-title">${s.title}</div>
       <div class="svc-desc">${s.desc}</div>
     </div>`).join('');
-  // Double for seamless loop
   document.getElementById('servicesTrack').innerHTML = cardHTML + cardHTML;
 }
 
@@ -1285,20 +1261,13 @@ function setupObserver() {
 }
 
 // ── SERVICES MARQUEE DIRECTION ────────────────────────
-// Right-to-left by default; reverses when user scrolls up
 (function(){
   let lastY = 0;
   window.addEventListener('scroll', () => {
     const track = document.getElementById('servicesTrack');
     if (!track) return;
     const curY = window.scrollY;
-    if (curY < lastY) {
-      // scrolling UP → left-to-right
-      track.classList.add('reverse');
-    } else {
-      // scrolling DOWN → right-to-left
-      track.classList.remove('reverse');
-    }
+    track.classList.toggle('reverse', curY < lastY);
     lastY = curY;
   }, { passive: true });
 })();
@@ -1373,9 +1342,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     btn.style.display = 'none';
     document.getElementById('formSuccess').style.display = 'flex';
     this.reset();
-    // Show thank you toast
     showThankYouToast();
-    // Voice thank you
     speakText([
       "Thank you so much for contacting us!",
       "We have received your message.",
@@ -1395,7 +1362,9 @@ function showThankYouToast() {
   setTimeout(() => toast.classList.remove('show'), 6000);
 }
 
+// ══════════════════════════════════════════════════════
 // ── WELCOME OVERLAY ───────────────────────────────────
+// ══════════════════════════════════════════════════════
 (function(){
   const overlay = document.getElementById('welcomeOverlay');
   const emojiContainer = document.getElementById('welcomeEmojis');
@@ -1403,7 +1372,6 @@ function showThankYouToast() {
 
   function showWelcome() {
     overlay.classList.add('show');
-    // Stagger emoji animations
     emojis.forEach((em, i) => {
       const span = document.createElement('span');
       span.className = 'w-emoji';
@@ -1411,7 +1379,14 @@ function showThankYouToast() {
       span.style.animationDelay = `${i * 0.12}s`;
       emojiContainer.appendChild(span);
     });
-    // Hide after 4.5 seconds
+
+    // Speak welcome as soon as overlay appears
+    // Small delay to let speech synthesis initialize
+    setTimeout(() => {
+      speakText(["Welcome to N T Tech Works! We build modern and beautiful websites. Please scroll down to explore our work."]);
+    }, 600);
+
+    // Hide after 4.5 seconds — smooth fade out
     setTimeout(() => {
       overlay.style.transition = 'opacity .7s ease';
       overlay.classList.remove('show');
@@ -1419,128 +1394,20 @@ function showThankYouToast() {
     }, 4500);
   }
 
-  // Show immediately on load
   showWelcome();
 })();
 
-// ── FIREWORKS (NIGHT MODE) ────────────────────────────
-(function(){
-  const canvas  = document.getElementById('fireworksCanvas');
-  const ctx     = canvas.getContext('2d');
-  let   W, H, particles = [], rockets = [], frameId;
-  let   running = false;
+// ══════════════════════════════════════════════════════
+// ── VOICE ASSISTANT — SCROLL-STOP SYSTEM ─────────────
+// ══════════════════════════════════════════════════════
 
-  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-  window.addEventListener('resize', resize); resize();
-
-  function isNight() {
-    const h = new Date().getHours();
-    return h >= 18 || h < 6;
-  }
-
-  const COLORS = ['#34d5ff','#8b5cf6','#f59e0b','#f43f5e','#10b981','#ec4899','#facc15','#60a5fa'];
-
-  function rand(min, max) { return Math.random() * (max - min) + min; }
-
-  function createRocket() {
-    rockets.push({
-      x: rand(W * .2, W * .8),
-      y: H,
-      vy: rand(-18, -14),
-      vx: rand(-2, 2),
-      color: COLORS[Math.floor(Math.random() * COLORS.length)],
-      life: 1
-    });
-  }
-
-  function explode(x, y, color) {
-    const count = Math.floor(rand(80, 140));
-    for (let i = 0; i < count; i++) {
-      const angle = (Math.PI * 2 / count) * i + rand(-0.1, 0.1);
-      const speed = rand(2, 9);
-      particles.push({
-        x, y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - rand(1, 3),
-        color,
-        life: 1,
-        decay: rand(0.012, 0.024),
-        size: rand(2, 4.5)
-      });
-    }
-  }
-
-  function tick() {
-    ctx.fillStyle = 'rgba(7,11,31,0.18)';
-    ctx.fillRect(0, 0, W, H);
-
-    // rockets
-    for (let i = rockets.length - 1; i >= 0; i--) {
-      const r = rockets[i];
-      r.x += r.vx; r.y += r.vy; r.vy += 0.45;
-      ctx.beginPath();
-      ctx.arc(r.x, r.y, 3, 0, Math.PI * 2);
-      ctx.fillStyle = r.color;
-      ctx.fill();
-      if (r.vy >= 0) {
-        explode(r.x, r.y, r.color);
-        rockets.splice(i, 1);
-      }
-    }
-
-    // particles
-    for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i];
-      p.x += p.vx; p.y += p.vy;
-      p.vy += 0.12; p.vx *= 0.97;
-      p.life -= p.decay;
-      if (p.life <= 0) { particles.splice(i, 1); continue; }
-      ctx.globalAlpha = p.life;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-    frameId = requestAnimationFrame(tick);
-  }
-
-  function startFireworks() {
-    if (running) return;
-    running = true;
-    canvas.classList.add('show');
-    let launches = 0;
-    const maxLaunches = 20;
-    const interval = setInterval(() => {
-      createRocket();
-      if (Math.random() > 0.5) createRocket();
-      launches++;
-      if (launches >= maxLaunches) clearInterval(interval);
-    }, 400);
-    tick();
-    // Fade out after ~12s
-    setTimeout(() => {
-      canvas.style.transition = 'opacity 2s ease';
-      canvas.classList.remove('show');
-      setTimeout(() => { cancelAnimationFrame(frameId); ctx.clearRect(0,0,W,H); running = false; }, 2000);
-    }, 12000);
-  }
-
-  // Check night and run
-  function checkAndFire() {
-    if (isNight()) {
-      setTimeout(startFireworks, 5000); // after welcome overlay fades
-    }
-  }
-  checkAndFire();
-})();
-
-// ── VOICE ASSISTANT ───────────────────────────────────
 let isMuted = false;
-let voiceUnlocked = false;
 const synth = window.speechSynthesis;
 const muteBtn = document.getElementById('voiceMuteBtn');
 const rippleEl = document.getElementById('voiceRipple');
+
+// Show mute button always (voice is auto-started)
+muteBtn.classList.add('show');
 
 function triggerRipple() {
   rippleEl.classList.remove('active');
@@ -1550,6 +1417,7 @@ function triggerRipple() {
 
 function speakText(sentences, onDone) {
   if (!synth || isMuted || !sentences || !sentences.length) { onDone && onDone(); return; }
+  synth.cancel();
   let i = 0;
   function next() {
     if (i >= sentences.length || isMuted) { onDone && onDone(); return; }
@@ -1559,155 +1427,109 @@ function speakText(sentences, onDone) {
     const v = voices.find(v => /Google US English|Samantha|Karen|Daniel|Moira/i.test(v.name));
     if (v) utt.voice = v;
     if (i === 0) utt.onstart = triggerRipple;
-    utt.onend  = () => { i++; setTimeout(next, 320); };
-    utt.onerror= () => { i++; setTimeout(next, 320); };
+    utt.onend  = () => { i++; setTimeout(next, 280); };
+    utt.onerror= () => { i++; setTimeout(next, 280); };
     synth.speak(utt);
   }
   next();
 }
 
+// Section scripts
 const SECTION_SCRIPTS = {
   about: [
-    "This is the About section.",
-    "We are NT TechWorks.",
-    "A small, passionate team.",
-    "We build clean, modern, and responsive websites.",
-    "Our goal — quality work and long-term trust."
+    "Welcome to the About section. We are N T Tech Works — a small, passionate team that builds clean, modern, and responsive websites. Our goal is quality work and long-term trust."
   ],
   skills: [
-    "Here are our technical skills.",
-    "We work with HTML, CSS, and JavaScript.",
-    "Responsive design, React, Node dot js, and more.",
-    "Every tool chosen to build the best websites."
+    "Here are our technical skills. We work with HTML, CSS, and JavaScript — along with responsive design, React, Node dot js, SEO, and more. Every tool chosen to build the best websites."
   ],
   services: [
-    "Here are our services.",
-    "We build business and restaurant websites.",
-    "Gym websites, e-commerce stores.",
-    "Portfolios, landing pages, and lead generation.",
-    "Everything your business needs online."
+    "Here are our services. We build business and restaurant websites, gym and fitness sites, e-commerce stores, portfolios, landing pages, and lead generation forms. Everything your business needs online."
   ],
   projects: [
-    "These are our projects.",
-    "Spice Garden Restaurant website.",
-    "FitPulse Gym and Fitness website.",
-    "ShopEase E-Commerce store.",
-    "And a Personal Portfolio website.",
-    "Each built with full care and clean code."
+    "These are our projects. Spice Garden Restaurant, FitPulse Gym and Fitness, ShopEase E-Commerce store, and a Personal Portfolio website. Each built with full care and clean code."
   ],
   team: [
-    "This is our team.",
-    "Niranjan — Founder and Frontend Developer.",
-    "Gowtham — UI and UX Designer.",
-    "Mahesh — Tester and Quality Assurance.",
-    "Harisudhan — Backend Developer.",
-    "Dhanush — Frontend Developer.",
-    "Together, we build great websites."
+    "Meet our team. Niranjan — Founder and Frontend Developer. Gowtham — UI and UX Designer. Mahesh — Tester. Harisudhan — Backend Developer. Dhanush — Frontend Developer. Together, we build great websites."
   ],
   process: [
-    "This is how we work.",
-    "Step one — Free consultation.",
-    "Step two — Design and planning.",
-    "Step three — Build and deliver.",
-    "Step four — Launch and ongoing support.",
-    "Simple, clear, and stress-free."
+    "This is how we work. Step one — Free consultation. Step two — Design and planning. Step three — Build and deliver. Step four — Launch and ongoing support. Simple, clear, and stress-free."
   ],
   pricing: [
-    "Here are our pricing plans.",
-    "Starter plan starts at just four thousand nine hundred and ninety nine rupees.",
-    "For the Growth plan — nine thousand nine hundred and ninety nine rupees.",
-    "We are very trustworthy and we make sure your money is never wasted.",
-    "No hidden charges. Honest pricing always.",
-    "For advanced features — Pro Store is eighteen thousand nine hundred ninety nine rupees.",
-    "All plans come with free support after delivery."
+    "Here are our pricing plans. Starter plan at four thousand nine hundred and ninety nine rupees. Growth plan at nine thousand nine hundred and ninety nine rupees. Pro Store at eighteen thousand nine hundred and ninety nine rupees. No hidden charges. Honest pricing, always."
   ],
   testimonials: [
-    "We are a new and energetic team.",
-    "But our commitment is one hundred percent.",
-    "You get full dedication on every project.",
-    "Direct communication — always.",
-    "Free revisions until you are happy.",
-    "Your success is our reputation."
+    "We are a new and energetic team — but our commitment is one hundred percent. You get full dedication, direct communication, and free revisions until you are completely happy. Your success is our reputation."
   ],
   why: [
-    "Here is why clients trust us.",
-    "We focus on quality, speed, and honest communication.",
-    "Clean code, on-time delivery, and long-term support.",
-    "We are here for you even after your website is live."
+    "Here is why clients trust us. We focus on quality, speed, and honest communication. Clean code, on-time delivery, and long-term support. We are here for you even after your website goes live."
   ],
   contact: [
-    "This is the Contact section.",
-    "You can call us or send an email.",
-    "Or fill in the contact form right here on this page.",
-    "The first consultation is completely free.",
-    "We would love to hear about your project!"
+    "This is the Contact section. You can call us, send an email, or fill in the form right here. The first consultation is completely free. We would love to hear about your project!"
   ]
 };
 
-const spokenSections = new Set();
+// ── SCROLL-STOP DETECTION ─────────────────────────────
+// Voice speaks only when user STOPS scrolling on a section
+// (not while scrolling, not when scrolling fast)
+
+let scrollStopTimer = null;
 let lastScrollY = window.scrollY;
+let isScrolling = false;
+let currentVisibleSection = null;
+const spokenSections = new Set();
 
-// Detect fast scroll
-let scrollVelocity = 0;
-let lastScrollTime = Date.now();
-window.addEventListener('scroll', () => {
-  const now = Date.now();
-  const dy  = Math.abs(window.scrollY - lastScrollY);
-  const dt  = now - lastScrollTime || 1;
-  scrollVelocity = dy / dt;
-  lastScrollY = window.scrollY;
-  lastScrollTime = now;
-}, { passive: true });
-
-const sectionObs = new IntersectionObserver(entries => {
+// Track which section is currently most visible
+const sectionVisibilityObs = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    const id = entry.target.id;
-    if (!entry.isIntersecting) { spokenSections.delete(id); return; }
-    if (spokenSections.has(id) || !SECTION_SCRIPTS[id] || !voiceUnlocked) return;
-    spokenSections.add(id);
-    setTimeout(() => {
-      if (isMuted) return;
-      synth.cancel();
-      // Fast scroll → brief trustability message
-      if (scrollVelocity > 2) {
-        speakText([
-          "We are completely trustworthy.",
-          "Your money is always safe with us.",
-          "We deliver what we promise."
-        ]);
-      } else {
-        speakText(SECTION_SCRIPTS[id]);
-      }
-    }, 800);
+    if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+      currentVisibleSection = entry.target.id;
+    }
   });
-}, { threshold: 0.35 });
+}, { threshold: [0.4, 0.6, 0.8] });
 
 Object.keys(SECTION_SCRIPTS).forEach(id => {
   const el = document.getElementById(id);
-  if (el) sectionObs.observe(el);
+  if (el) sectionVisibilityObs.observe(el);
 });
 
-function unlockVoice() {
-  if (voiceUnlocked) return;
-  voiceUnlocked = true;
-  muteBtn.classList.add('show');
-  // Welcome voice — within ~0.1s of interaction
-  if (!sessionStorage.getItem('nt_voice_welcomed')) {
-    sessionStorage.setItem('nt_voice_welcomed', '1');
-    setTimeout(() => {
-      speakText([
-        "Welcome to NT TechWorks!",
-        "We build modern and beautiful websites.",
-        "Please scroll down to explore our work."
-      ]);
-    }, 100);
-  }
-}
+// Listen for scroll events
+window.addEventListener('scroll', () => {
+  isScrolling = true;
+  // Cancel any pending speak-on-stop
+  clearTimeout(scrollStopTimer);
+  // Cancel current speech while scrolling
+  if (synth && synth.speaking) synth.cancel();
 
-['click','touchstart','keydown','scroll'].forEach(ev => {
-  window.addEventListener(ev, unlockVoice, { once: true, passive: true });
+  // After scroll stops for 900ms → speak current section
+  scrollStopTimer = setTimeout(() => {
+    isScrolling = false;
+    const id = currentVisibleSection;
+    if (!id || !SECTION_SCRIPTS[id] || isMuted) return;
+    if (spokenSections.has(id)) return;
+    spokenSections.add(id);
+    speakText(SECTION_SCRIPTS[id]);
+  }, 900);
+
+  // Reset spoken flag when user scrolls away from a section
+  // (so revisiting a section re-triggers)
+  lastScrollY = window.scrollY;
+}, { passive: true });
+
+// Reset spoken state when section leaves viewport
+const resetObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) {
+      spokenSections.delete(entry.target.id);
+    }
+  });
+}, { threshold: 0.05 });
+
+Object.keys(SECTION_SCRIPTS).forEach(id => {
+  const el = document.getElementById(id);
+  if (el) resetObs.observe(el);
 });
 
+// ── MUTE BUTTON ───────────────────────────────────────
 muteBtn.addEventListener('click', () => {
   isMuted = !isMuted;
   if (isMuted) {
