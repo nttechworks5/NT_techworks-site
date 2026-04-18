@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Our Team Portfolio – NT TechWorks</title>
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:        #070b1f;
+    --bg2:       #0d1330;
+    --bg3:       #141c42;
+    --card:      rgba(255,255,255,0.045);
+    --border:    rgba(146,161,255,0.22);
+    --accent:    #34d5ff;
+    --accent2:   #8b5cf6;
+    --accent3:   #f59e0b;
+    --text:      #f4f7ff;
+    --muted:     #a9b3d0;
+    --radius:    16px;
+    --glow:      0 16px 42px rgba(52,213,255,0.16);
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    background: radial-gradient(circle at 20% -10%, rgba(139,92,246,.18), transparent 40%), var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: .3;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 99px; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .grad-text {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-head); font-weight: 700; font-size: .88rem;
+    padding: 12px 28px; border-radius: 12px;
+    cursor: pointer; transition: all .3s ease; border: none;
+    letter-spacing: .04em; text-decoration: none;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; box-shadow: 0 8px 24px rgba(0,212,255,.2);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(0,212,255,.35); }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 1.5px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .glass {
+    background: var(--card); border: 1px solid var(--border);
+    backdrop-filter: blur(16px); border-radius: var(--radius);
+  }
+  .tag {
+    display: inline-block;
+    font-family: var(--font-head);
+    font-size: .65rem; font-weight: 800;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(0,212,255,.08);
+    border: 1px solid rgba(0,212,255,.2);
+    padding: 5px 16px; border-radius: 99px; margin-bottom: 18px;
+  }
+
+  /* ── NAVBAR ── */
+  #navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 18px 0;
+    background: rgba(10,14,39,.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo {
+    display: inline-flex; align-items: center;
+    font-family: var(--font-head); font-weight: 800;
+    font-size: 1.4rem; letter-spacing: -.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-head); font-weight: 700; font-size: .85rem;
+    color: var(--muted); transition: color .2s;
+  }
+  .nav-back:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .portfolio-hero {
+    padding: 140px 0 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .portfolio-hero::before {
+    content: '';
+    position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(139,92,246,.15), transparent 65%);
+    pointer-events: none;
+  }
+  .portfolio-hero h1 {
+    font-family: var(--font-head); font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800; line-height: 1.15; margin-bottom: 18px; position: relative;
+  }
+  .portfolio-hero p {
+    color: var(--muted); font-size: 1.05rem; max-width: 560px; margin: 0 auto; position: relative;
+  }
+
+  /* ── TEAM MEMBER CARDS (selector row) ── */
+  .team-selector {
+    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+    padding: 0 0 60px;
+  }
+  .team-thumb {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    cursor: pointer;
+    padding: 20px 18px 16px;
+    border-radius: 18px;
+    border: 1.5px solid var(--border);
+    background: var(--card);
+    transition: all .3s ease;
+    min-width: 130px;
+    position: relative;
+  }
+  .team-thumb:hover, .team-thumb.active {
+    border-color: var(--accent);
+    background: rgba(52,213,255,.06);
+    transform: translateY(-4px);
+    box-shadow: var(--glow);
+  }
+  .team-thumb.active::after {
+    content: '';
+    position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--accent);
+  }
+  .thumb-emoji {
+    width: 62px; height: 62px; border-radius: 14px;
+    background: linear-gradient(135deg, rgba(52,213,255,.1), rgba(139,92,246,.1));
+    border: 1px solid rgba(52,213,255,.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem;
+    transition: transform .3s ease;
+  }
+  .team-thumb:hover .thumb-emoji, .team-thumb.active .thumb-emoji { transform: scale(1.1); }
+  .thumb-name { font-family: var(--font-head); font-weight: 700; font-size: .88rem; text-align: center; }
+  .thumb-role { font-size: .72rem; color: var(--accent); font-weight: 600; text-align: center; }
+  .thumb-arrow {
+    font-size: .8rem; color: var(--accent);
+    opacity: 0; transition: opacity .2s, transform .2s;
+    transform: translateY(-4px);
+  }
+  .team-thumb:hover .thumb-arrow, .team-thumb.active .thumb-arrow {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* ── PORTFOLIO DETAIL PANEL ── */
+  .portfolio-detail {
+    display: none;
+    padding: 0 0 80px;
+    animation: fadeInUp .45s ease forwards;
+  }
+  .portfolio-detail.show { display: block; }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .detail-header {
+    display: flex; align-items: flex-start; gap: 28px;
+    padding: 36px; border-radius: 22px;
+    background: var(--card); border: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+  .detail-avatar {
+    width: 90px; height: 90px; border-radius: 18px; flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(52,213,255,.12), rgba(139,92,246,.12));
+    border: 1px solid rgba(52,213,255,.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.4rem;
+  }
+  .detail-name { font-family: var(--font-head); font-weight: 800; font-size: 1.6rem; margin-bottom: 4px; }
+  .detail-role { color: var(--accent); font-size: .9rem; font-weight: 600; margin-bottom: 12px; }
+  .detail-bio  { color: var(--muted); font-size: .95rem; line-height: 1.8; max-width: 620px; margin-bottom: 20px; }
+  .detail-skills-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .detail-skill-tag {
+    font-size: .72rem; font-weight: 700; padding: 5px 12px;
+    border-radius: 999px; border: 1px solid rgba(52,213,255,.25);
+    background: rgba(52,213,255,.07); color: #c2f0ff;
+  }
+  .detail-link-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-head); font-weight: 700; font-size: .82rem;
+    padding: 10px 22px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; transition: all .3s ease;
+    border: none; cursor: pointer;
+  }
+  .detail-link-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(52,213,255,.3); }
+  .detail-link-btn.disabled {
+    background: rgba(255,255,255,.06); color: var(--muted);
+    border: 1px solid var(--border); cursor: not-allowed;
+  }
+  .detail-link-btn.disabled:hover { transform: none; box-shadow: none; }
+
+  /* ── WORK GRID ── */
+  .work-section-title {
+    font-family: var(--font-head); font-weight: 700; font-size: 1.1rem;
+    margin-bottom: 18px; color: var(--text);
+  }
+  .work-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px; margin-bottom: 40px;
+  }
+  .work-card {
+    border-radius: 16px; overflow: hidden;
+    background: var(--bg3); border: 1px solid var(--border);
+    transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+  }
+  .work-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: var(--glow); }
+  .work-thumb {
+    width: 100%; height: 160px; overflow: hidden;
+    background: linear-gradient(135deg, rgba(52,213,255,.08), rgba(139,92,246,.12));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3.5rem; position: relative;
+  }
+  .work-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+  .work-card:hover .work-thumb img { transform: scale(1.07); }
+  .work-body { padding: 16px 18px 14px; }
+  .work-title { font-family: var(--font-head); font-weight: 700; font-size: .95rem; margin-bottom: 6px; }
+  .work-desc  { font-size: .8rem; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+  .work-footer { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px 14px; border-top: 1px solid var(--border); }
+  .work-link {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--font-head); font-size: .78rem; font-weight: 700;
+    color: var(--accent); transition: gap .2s;
+  }
+  .work-link:hover { gap: 10px; }
+  .work-link.coming-soon { color: var(--muted); cursor: default; }
+  .work-tag { font-size: .65rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: rgba(52,213,255,.08); border: 1px solid rgba(52,213,255,.2); color: var(--accent); }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center; padding: 60px 30px;
+    background: var(--card); border-radius: 20px; border: 1px solid var(--border);
+  }
+  .empty-state .e-icon { font-size: 3rem; margin-bottom: 16px; }
+  .empty-state h3 { font-family: var(--font-head); font-size: 1.1rem; margin-bottom: 10px; }
+  .empty-state p  { color: var(--muted); font-size: .88rem; }
+
+  /* ── BACK BTN ── */
+  .back-strip {
+    text-align: center; padding: 0 0 48px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg2); border-top: 1px solid var(--border);
+    padding: 36px 0; text-align: center;
+  }
+  footer p { color: var(--muted); font-size: .84rem; }
+  footer a { color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .container { padding: 0 18px; }
+    .portfolio-hero { padding: 110px 0 50px; }
+    .portfolio-hero h1 { font-size: 1.9rem; }
+    .team-selector { gap: 10px; }
+    .team-thumb { min-width: 100px; padding: 14px 12px 12px; }
+    .thumb-emoji { width: 52px; height: 52px; font-size: 1.5rem; }
+    .thumb-name { font-size: .78rem; }
+    .detail-header { flex-direction: column; gap: 18px; padding: 22px; }
+    .detail-avatar { width: 72px; height: 72px; font-size: 1.9rem; border-radius: 14px; }
+    .detail-name { font-size: 1.3rem; }
+    .work-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .work-thumb { height: 120px; }
+  }
+  @media (max-width: 480px) {
+    .team-selector { gap: 8px; }
+    .team-thumb { min-width: 82px; padding: 12px 8px 10px; }
+    .thumb-emoji { width: 44px; height: 44px; font-size: 1.3rem; border-radius: 10px; }
+    .thumb-name { font-size: .72rem; }
+    .thumb-role { font-size: .64rem; }
+    .work-grid { grid-template-columns: 1fr; }
+    .detail-header { padding: 16px; }
+    .detail-name { font-size: 1.15rem; }
+    .detail-bio { font-size: .88rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">NT <span>TechWorks</span></a>
+      <a href="index.html#team" class="nav-back">← Back to Home</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="portfolio-hero">
+  <div class="container">
+    <div class="tag">Our Team</div>
+    <h1>Meet the People Behind <span class="grad-text">NT TechWorks</span></h1>
+    <p>Click on a team member to explore their work, skills, and portfolio.</p>
+  </div>
+</div>
+
+<!-- TEAM SELECTOR -->
+<div class="container">
+  <div class="team-selector" id="teamSelector">
+    <!-- Rendered by JS -->
+  </div>
+
+  <!-- PORTFOLIO DETAIL -->
+  <div class="portfolio-detail" id="portfolioDetail">
+    <!-- Rendered by JS -->
+  </div>
+
+  <!-- BACK BTN -->
+  <div class="back-strip">
+    <a href="index.html" class="btn btn-outline">← Back to NT TechWorks</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>© 2025 NT TechWorks. All rights reserved. Built with ❤️ by <a href="index.html">NT TechWorks</a></p>
+  </div>
+</footer>
+
+<script>
+const TEAM_DATA = [
+  {
+    id: 'niranjan',
+    emoji: '🎯',
+    name: 'Niranjan M',
+    role: 'Founder / Frontend Developer',
+    bio: 'Niranjan founded NT TechWorks with a mission to build clean, modern, and responsive websites for growing businesses. He leads the frontend development, ensuring every site is fast, beautiful, and user-friendly.',
+    skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Responsive Design', 'UI/UX', 'SEO'],
+    portfolioLink: '#', // Replace with actual link
+    works: [
+      {
+        title: 'NT TechWorks Website',
+        desc: 'Designed and built the full NT TechWorks company website with voice assistant, animations, and responsive layout.',
+        emoji: '🌐',
+        tag: 'Company Site',
+        link: 'index.html'
+      },
+      {
+        title: 'FitPulse Gym & Fitness',
+        desc: 'A high-energy gym website with class schedules, trainer profiles, and membership info.',
+        emoji: '💪',
+        tag: 'Fitness',
+        link: 'https://nttechworks5.github.io/NT_lifestyle/'
+      },
+      {
+        title: 'More Projects Coming',
+        desc: 'Stay tuned for more exciting projects from Niranjan.',
+        emoji: '🚀',
+        tag: 'Coming Soon',
+        link: null
+      }
+    ]
+  },
+  {
+    id: 'gowtham',
+    emoji: '🎨',
+    name: 'Gowtham',
+    role: 'UI/UX Designer',
+    bio: 'Gowtham is the creative force behind every design at NT TechWorks. He crafts premium UI layouts with AI-integrated design principles, ensuring every interface is visually stunning and intuitive to use.',
+    skills: ['Figma', 'Adobe XD', 'UI Design', 'UX Research', 'Prototyping', 'Branding', 'AI Design Tools'],
+    portfolioLink: '#', // Replace with actual link
+    works: [
+      {
+        title: 'Portfolio Coming Soon',
+        desc: "Gowtham's design portfolio will be live soon. Watch this space!",
+        emoji: '🎨',
+        tag: 'Coming Soon',
+        link: null
+      }
+    ]
+  },
+  {
+    id: 'mahesh',
+    emoji: '🔬',
+    name: 'Mahesh Kumar',
+    role: 'Tester',
+    bio: 'Mahesh ensures every website we deliver is production-ready and bug-free. He performs thorough quality assurance — from functional testing to cross-device and cross-browser compatibility checks.',
+    skills: ['Manual Testing', 'Cross-browser QA', 'Bug Reporting', 'Performance Testing', 'Mobile Testing', 'Regression Testing'],
+    portfolioLink: '#', // Replace with actual link
+    works: [
+      {
+        title: 'QA Portfolio Coming Soon',
+        desc: "Mahesh's testing case studies and QA reports will be published soon.",
+        emoji: '🔬',
+        tag: 'Coming Soon',
+        link: null
+      }
+    ]
+  },
+  {
+    id: 'harisudhan',
+    emoji: '⚙️',
+    name: 'Harisudhan',
+    role: 'Backend Developer',
+    bio: 'Harisudhan builds the engine that powers our websites. He develops secure, scalable backend systems and robust APIs, ensuring every site works flawlessly behind the scenes.',
+    skills: ['Node.js', 'Express.js', 'MongoDB', 'REST APIs', 'Authentication', 'Database Design', 'Server Deployment'],
+    portfolioLink: '#', // Replace with actual link
+    works: [
+      {
+        title: 'Backend Portfolio Coming Soon',
+        desc: "Harisudhan's backend projects and API showcases will be live soon.",
+        emoji: '⚙️',
+        tag: 'Coming Soon',
+        link: null
+      }
+    ]
+  },
+  {
+    id: 'dhanush',
+    emoji: '🖥️',
+    name: 'Dhanush',
+    role: 'Frontend Developer',
+    bio: 'Dhanush brings designs to life with pixel-perfect frontend code. He specializes in building smooth, interactive user interfaces that work seamlessly across all devices and screen sizes.',
+    skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Animations', 'Bootstrap', 'Tailwind CSS'],
+    portfolioLink: '#', // Replace with actual link
+    works: [
+      {
+        title: 'ShopEase E-Commerce',
+        desc: 'A full-featured e-commerce website with product listings, cart system, and responsive design.',
+        emoji: '🛒',
+        tag: 'E-Commerce',
+        link: 'https://dhanushtech80.github.io/nt-fashions/'
+      },
+      {
+        title: 'More Projects Coming',
+        desc: 'More frontend projects from Dhanush will be showcased here soon.',
+        emoji: '🖥️',
+        tag: 'Coming Soon',
+        link: null
+      }
+    ]
+  }
+];
+
+let activeId = null;
+
+function renderTeamSelector() {
+  const el = document.getElementById('teamSelector');
+  el.innerHTML = TEAM_DATA.map(m => `
+    <div class="team-thumb ${activeId === m.id ? 'active' : ''}" onclick="showMember('${m.id}')">
+      <div class="thumb-emoji">${m.emoji}</div>
+      <div class="thumb-name">${m.name}</div>
+      <div class="thumb-role">${m.role.split(' / ')[0]}</div>
+      <div class="thumb-arrow">↓</div>
+    </div>
+  `).join('');
+}
+
+function showMember(id) {
+  if (activeId === id) {
+    activeId = null;
+    renderTeamSelector();
+    const detail = document.getElementById('portfolioDetail');
+    detail.classList.remove('show');
+    return;
+  }
+
+  activeId = id;
+  renderTeamSelector();
+
+  const member = TEAM_DATA.find(m => m.id === id);
+  if (!member) return;
+
+  const detail = document.getElementById('portfolioDetail');
+  detail.classList.remove('show');
+
+  setTimeout(() => {
+    const hasRealWork = member.works.some(w => w.link);
+    const worksHTML = member.works.map(w => `
+      <div class="work-card">
+        <div class="work-thumb">
+          <span style="font-size:3.2rem;">${w.emoji}</span>
+        </div>
+        <div class="work-body">
+          <div class="work-title">${w.title}</div>
+          <div class="work-desc">${w.desc}</div>
+        </div>
+        <div class="work-footer">
+          ${w.link
+            ? `<a href="${w.link}" target="_blank" class="work-link">View Project →</a>`
+            : `<span class="work-link coming-soon">Coming Soon</span>`
+          }
+          <span class="work-tag">${w.tag}</span>
+        </div>
+      </div>
+    `).join('');
+
+    detail.innerHTML = `
+      <div class="detail-header">
+        <div class="detail-avatar">${member.emoji}</div>
+        <div>
+          <div class="detail-name">${member.name}</div>
+          <div class="detail-role">${member.role}</div>
+          <div class="detail-bio">${member.bio}</div>
+          <div class="detail-skills-row">
+            ${member.skills.map(s => `<span class="detail-skill-tag">${s}</span>`).join('')}
+          </div>
+          ${member.portfolioLink && member.portfolioLink !== '#'
+            ? `<a href="${member.portfolioLink}" target="_blank" class="detail-link-btn">View Full Portfolio ↗</a>`
+            : `<span class="detail-link-btn disabled">Portfolio Link Coming Soon</span>`
+          }
+        </div>
+      </div>
+      <div class="work-section-title">Works & Projects</div>
+      <div class="work-grid">${worksHTML}</div>
+    `;
+
+    detail.classList.add('show');
+
+    // Smooth scroll to detail
+    setTimeout(() => {
+      detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }, 50);
+}
+
+renderTeamSelector();
+</script>
+</body>
+</html>
