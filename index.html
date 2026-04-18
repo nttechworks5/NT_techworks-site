@@ -8,6 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+<!-- ✅ EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <style>
   :root {
     --bg:        #070b1f;
@@ -105,7 +109,7 @@
   .parallax-soft { will-change: transform; transition: transform .15s linear; }
   .scroll-slide-l, .scroll-slide-r { will-change: transform; transition: transform .18s linear; }
 
-  /* ── NAVBAR ─────────────────────────────────────── */
+  /* ── NAVBAR ── */
   #navbar {
     position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     padding: 18px 0; transition: all .4s ease;
@@ -139,7 +143,7 @@
   .hamburger.active span:nth-child(2) { opacity: 0; }
   .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* ── MOBILE MENU ────────────────────────────────── */
+  /* ── MOBILE MENU ── */
   .mobile-menu {
     position: fixed;
     right: 0; top: 0;
@@ -213,7 +217,7 @@
   }
   .mobile-overlay.show { opacity: 1; visibility: visible; }
 
-  /* ── HERO ───────────────────────────────────────── */
+  /* ── HERO ── */
   #hero {
     min-height: 100vh; display: flex; align-items: center;
     position: relative; overflow: hidden;
@@ -281,7 +285,7 @@
   .chip2 { bottom: 20px; left: -40px; animation-delay: 2.5s; color: #c3e88d; }
   .chip3 { bottom: -20px; right: 10px; animation-delay: 1.8s; color: var(--accent3); }
 
-  /* ── VOICE UNLOCK BANNER ─────────────────────────── */
+  /* ── VOICE UNLOCK BANNER ── */
   #voiceUnlockBanner {
     position: fixed; top: 0; left: 0; right: 0; z-index: 20000;
     background: linear-gradient(135deg, rgba(52,213,255,.95), rgba(139,92,246,.95));
@@ -301,7 +305,7 @@
     background: #fff; animation: pulse 1.5s infinite;
   }
 
-  /* ── WELCOME OVERLAY ────────────────────────────── */
+  /* ── WELCOME OVERLAY ── */
   #welcomeOverlay {
     position: fixed; inset: 0; z-index: 10000;
     display: flex; flex-direction: column;
@@ -348,7 +352,7 @@
   #welcomeOverlay.show .welcome-title { opacity: 1; transform: translateY(0); }
   #welcomeOverlay.show .welcome-sub   { opacity: 1; }
 
-  /* ── THANK YOU TOAST ─────────────────────────────── */
+  /* ── THANK YOU TOAST ── */
   .thank-you-toast {
     position: fixed; bottom: 30px; right: 24px; z-index: 9999;
     display: flex; align-items: center; gap: 14px;
@@ -368,7 +372,7 @@
   .ty-text strong { font-family: var(--font-head); font-size: .95rem; color: var(--text); }
   .ty-text span   { font-size: .8rem; color: var(--accent); }
 
-  /* ── FAST SCROLL BANNER ──────────────────────────── */
+  /* ── FAST SCROLL BANNER ── */
   #fastScrollBanner {
     position: fixed; top: 70px; left: 50%; transform: translateX(-50%) translateY(-80px);
     z-index: 2000; background: rgba(13,19,48,.97);
@@ -384,7 +388,7 @@
     transform: translateX(-50%) translateY(0); opacity: 1;
   }
 
-  /* ── ABOUT ──────────────────────────────────────── */
+  /* ── ABOUT ── */
   #about { background: var(--bg2); }
   .about-grid { display: grid; grid-template-columns: 1fr; gap: 0; align-items: center; }
   .about-text { max-width: 760px; margin: 0 auto; }
@@ -414,7 +418,7 @@
   .about-text-content p { color: var(--muted); margin-bottom: 20px; font-size: 1rem; }
   .about-quote { border-left: 3px solid var(--accent); padding: 18px 24px; background: rgba(0,212,255,.06); border-radius: 0 12px 12px 0; font-style: italic; color: var(--accent); margin-top: 28px; font-size: .95rem; font-weight: 600; }
 
-  /* ── SKILLS ─────────────────────────────────────── */
+  /* ── SKILLS ── */
   #skills { background: var(--bg); }
   .skills-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
   .skill-card {
@@ -431,7 +435,7 @@
   .skill-bar-wrap { height: 5px; background: rgba(255,255,255,.08); border-radius: 99px; overflow: hidden; }
   .skill-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 99px; transition: width 1.2s ease; width: 0; }
 
-  /* ── SERVICES ─── marquee ───── */
+  /* ── SERVICES ── */
   #services { background: var(--bg2); overflow: hidden; }
   .services-marquee-wrapper {
     position: relative; overflow: hidden;
@@ -471,7 +475,7 @@
   .svc-title { font-family: var(--font-head); font-weight: 700; font-size: 1.08rem; margin-bottom: 10px; }
   .svc-desc  { font-size: .88rem; color: var(--muted); line-height: 1.68; }
 
-  /* ── PROJECTS ───────────────────────────────────── */
+  /* ── PROJECTS ── */
   #projects { background: var(--bg); }
   .projects-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
   .project-card { border-radius: 20px; overflow: hidden; background: var(--bg3); border: 1px solid var(--border); transition: transform .38s cubic-bezier(.22,1,.36,1), box-shadow .38s ease, border-color .38s ease; display: flex; flex-direction: column; height: 100%; position: relative; }
@@ -484,11 +488,15 @@
   .thumb-gym::before        { background: linear-gradient(160deg, rgba(52,213,255,.4) 0%, rgba(0,5,20,.65) 100%); }
   .thumb-ecom::before       { background: linear-gradient(160deg, rgba(139,92,246,.5) 0%, rgba(5,0,15,.65) 100%); }
   .thumb-portfolio::before  { background: linear-gradient(160deg, rgba(245,158,11,.45) 0%, rgba(10,8,0,.65) 100%); }
+  .thumb-edtech::before     { background: linear-gradient(160deg, rgba(52,213,100,.45) 0%, rgba(0,10,5,.65) 100%); }
+  .thumb-audiobook::before  { background: linear-gradient(160deg, rgba(245,100,200,.45) 0%, rgba(15,0,10,.65) 100%); }
   .project-badge { position: absolute; top: 14px; left: 14px; z-index: 2; font-family: var(--font-head); font-size: .62rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding: 5px 12px; border-radius: 99px; backdrop-filter: blur(8px); }
   .badge-restaurant { background: rgba(245,100,0,.25); border: 1px solid rgba(245,100,0,.5); color: #ffb07a; }
   .badge-gym        { background: rgba(52,213,255,.18); border: 1px solid rgba(52,213,255,.4); color: var(--accent); }
   .badge-ecom       { background: rgba(139,92,246,.22); border: 1px solid rgba(139,92,246,.45); color: #c4b5fd; }
   .badge-portfolio  { background: rgba(245,158,11,.2);  border: 1px solid rgba(245,158,11,.4);  color: #fcd34d; }
+  .badge-edtech     { background: rgba(52,213,100,.2);  border: 1px solid rgba(52,213,100,.4);  color: #86efac; }
+  .badge-audiobook  { background: rgba(245,100,200,.2); border: 1px solid rgba(245,100,200,.4); color: #f9a8d4; }
   .project-body { padding: 20px 20px 14px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
   .project-title { font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
   .project-skills { display: flex; flex-wrap: wrap; gap: 7px; }
@@ -498,20 +506,30 @@
   .project-link:hover { gap: 12px; }
   .project-link-arrow { font-size: .9rem; transition: transform .22s; }
   .project-link:hover .project-link-arrow { transform: translateX(4px); }
+  .project-link.coming-soon { color: var(--muted); pointer-events: none; }
 
-  /* ── TEAM ───────────────────────────────────────── */
+  /* ── TEAM ── */
   #team { background: var(--bg2); }
   .team-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
   .team-grid .team-card:first-child { grid-column: 1 / -1; }
   .team-grid .team-card:nth-child(n+2) { grid-column: span 2; }
-  .team-card { text-align: center; padding: 36px 24px 28px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--border); transition: all .35s ease; height: 100%; display: flex; flex-direction: column; align-items: center; }
+  .team-card { text-align: center; padding: 36px 24px 28px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--border); transition: all .35s ease; height: 100%; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
   .team-card:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: var(--glow); background: rgba(0,212,255,.04); }
   .team-avatar { width: 90px; height: 90px; border-radius: 16px; margin: 0 auto 18px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; border: 2px solid rgba(0,212,255,.15); background: linear-gradient(135deg, rgba(0,212,255,.08), rgba(124,58,237,.08)); }
   .team-name { font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; margin-bottom: 4px; }
   .team-role { font-size: .82rem; color: var(--accent); font-weight: 600; margin-bottom: 12px; }
-  .team-desc { font-size: .82rem; color: var(--muted); line-height: 1.7; }
+  .team-desc { font-size: .82rem; color: var(--muted); line-height: 1.7; margin-bottom: 14px; }
+  .team-portfolio-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-head); font-size: .74rem; font-weight: 700;
+    color: var(--accent); border: 1px solid rgba(52,213,255,.25);
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(52,213,255,.06);
+    transition: all .2s; margin-top: auto;
+  }
+  .team-card:hover .team-portfolio-link { background: rgba(52,213,255,.12); border-color: var(--accent); }
 
-  /* ── WHY US ─────────────────────────────────────── */
+  /* ── WHY US ── */
   #why { background: var(--bg); }
   .why-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
   .why-card { display: flex; align-items: flex-start; gap: 18px; padding: 28px 26px; border-radius: 14px; background: var(--card); border: 1px solid var(--border); transition: all .3s ease; height: 100%; }
@@ -520,7 +538,7 @@
   .why-text h4 { font-family: var(--font-head); font-weight: 700; margin-bottom: 6px; font-size: .98rem; }
   .why-text p  { font-size: .86rem; color: var(--muted); line-height: 1.6; }
 
-  /* ── CONTACT ─────────────────────────────────────── */
+  /* ── CONTACT ── */
   #contact { background: var(--bg); }
   .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
   .contact-info h3 { font-family: var(--font-head); font-weight: 700; font-size: 1.6rem; margin-bottom: 18px; }
@@ -546,8 +564,9 @@
   .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,212,255,.1); background: rgba(0,212,255,.02); }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   .form-success { display: none; align-items: center; gap: 12px; background: rgba(39,201,63,.12); border: 1px solid rgba(39,201,63,.3); border-radius: 12px; padding: 16px 20px; color: #27c93f; font-weight: 600; font-size: .9rem; }
+  .form-error { display: none; align-items: center; gap: 12px; background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.3); border-radius: 12px; padding: 16px 20px; color: #ef4444; font-weight: 600; font-size: .9rem; }
 
-  /* ── FOOTER ─────────────────────────────────────── */
+  /* ── FOOTER ── */
   footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 60px 0 32px; }
   .footer-top { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 32px; justify-items: center; text-align: center; }
   .footer-brand p { color: var(--muted); font-size: .88rem; margin-top: 14px; line-height: 1.8; max-width: 560px; }
@@ -563,12 +582,12 @@
   .footer-bottom-links a { display: inline-flex; align-items: center; padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px; background: rgba(255,255,255,.02); color: var(--muted); transition: all .2s ease; }
   .footer-bottom-links a:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,.05); }
 
-  /* ── BACK TO TOP ─────────────────────────────────── */
+  /* ── BACK TO TOP ── */
   #btt { position: fixed; bottom: 28px; right: 28px; width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; cursor: pointer; z-index: 999; box-shadow: 0 8px 24px rgba(0,212,255,.2); opacity: 0; transform: translateY(20px); transition: all .3s ease; border: none; color: #fff; }
   #btt.show { opacity: 1; transform: translateY(0); }
   #btt:hover { transform: translateY(-4px); }
 
-  /* ── VOICE CONTROLS ─────────────────────────────── */
+  /* ── VOICE CONTROLS ── */
   #voiceMuteBtn {
     position: fixed; bottom: 86px; right: 28px;
     width: 48px; height: 48px; border-radius: 12px;
@@ -586,14 +605,14 @@
   .voice-ripple.active { animation: voiceRipple 1s ease-out forwards; }
   @keyframes voiceRipple { 0% { opacity: .6; transform: scale(1); } 100% { opacity: 0; transform: scale(2.2); } }
 
-  /* ── CONSULT BANNER ─────────────────────────────── */
+  /* ── CONSULT BANNER ── */
   .consult-banner { margin: 38px 0 0; display: flex; align-items: center; gap: 18px; background: linear-gradient(135deg, rgba(52,213,255,.08), rgba(139,92,246,.1)); border: 1px solid rgba(52,213,255,.22); border-radius: 16px; padding: 18px 26px; flex-wrap: wrap; }
   .consult-banner-text { flex: 1; min-width: 180px; }
   .consult-banner-text strong { display: block; font-family: var(--font-head); font-size: 1rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
   .consult-banner-text span { font-size: .85rem; color: var(--muted); }
   .consult-banner .btn { white-space: nowrap; flex-shrink: 0; }
 
-  /* ── PROCESS ────────────────────────────────────── */
+  /* ── PROCESS ── */
   #process { background: var(--bg2); }
   .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
   .process-grid::before { content: ''; position: absolute; top: 36px; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); opacity: .3; z-index: 0; }
@@ -603,7 +622,7 @@
   .process-step-title { font-family: var(--font-head); font-weight: 700; font-size: .95rem; margin-bottom: 10px; color: var(--text); }
   .process-step-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; }
 
-  /* ── PRICING ────────────────────────────────────── */
+  /* ── PRICING ── */
   #pricing { background: var(--bg); }
   .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; }
   .pricing-card { border-radius: 20px; background: var(--card); border: 1px solid var(--border); padding: 36px 28px 32px; display: flex; flex-direction: column; gap: 0; transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease; position: relative; overflow: hidden; }
@@ -624,13 +643,13 @@
   .pricing-feature.off .check { color: var(--muted); }
   .pricing-cta { width: 100%; justify-content: center; }
 
-  /* ── TESTIMONIALS ───────────────────────────────── */
+  /* ── TESTIMONIALS ── */
   #testimonials { background: var(--bg2); }
   .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
   .testi-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 28px 26px; display: flex; flex-direction: column; gap: 18px; transition: transform .35s ease, border-color .35s ease; position: relative; }
   .testi-card:hover { transform: translateY(-6px); border-color: var(--accent); }
 
-  /* ── RESPONSIVE ──────────────────────────────────── */
+  /* ── RESPONSIVE ── */
   @media (max-width: 1024px) {
     .footer-top { grid-template-columns: 1fr; }
     .footer-bottom-right { display: none; }
@@ -752,13 +771,11 @@
 </head>
 <body>
 
-<!-- ══ VOICE UNLOCK BANNER (Instagram fix) ══════════ -->
 <div id="voiceUnlockBanner">
   <div class="unlock-pulse"></div>
   🔊 Tap anywhere to enable voice — NT TechWorks greets you!
 </div>
 
-<!-- ══ WELCOME OVERLAY ════════════════════════════ -->
 <div id="welcomeOverlay">
   <div class="welcome-emoji-container" id="welcomeEmojis"></div>
   <div class="welcome-title">Welcome to NT TechWorks! 🚀</div>
@@ -766,7 +783,6 @@
   <div class="welcome-tap-hint">👆 Tap to enter</div>
 </div>
 
-<!-- ══ THANK YOU TOAST ════════════════════════════ -->
 <div id="thankYouToast" class="thank-you-toast">
   <div class="ty-icon">🎉</div>
   <div class="ty-text">
@@ -775,10 +791,9 @@
   </div>
 </div>
 
-<!-- ══ FAST SCROLL BANNER ═════════════════════════ -->
 <div id="fastScrollBanner">⚡ We are trusted — we never waste your money!</div>
 
-<!-- ══ NAVBAR ══════════════════════════════════════ -->
+<!-- NAVBAR -->
 <nav id="navbar">
   <div class="container">
     <div class="nav-inner">
@@ -801,10 +816,7 @@
   </div>
 </nav>
 
-<!-- MOBILE OVERLAY -->
 <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobile()"></div>
-
-<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation menu">
   <div class="mobile-menu-header">
     <div class="mobile-menu-logo">NT <span>TechWorks</span></div>
@@ -824,7 +836,7 @@
   </div>
 </div>
 
-<!-- ══ HERO ════════════════════════════════════════ -->
+<!-- HERO -->
 <section id="hero">
   <div class="hero-bg">
     <video autoplay muted loop playsinline preload="metadata" aria-label="NT TechWorks hero background">
@@ -885,7 +897,7 @@
   </div>
 </section>
 
-<!-- ══ ABOUT ════════════════════════════════════════ -->
+<!-- ABOUT -->
 <section id="about" class="section">
   <div class="container">
     <div class="about-grid">
@@ -910,7 +922,7 @@
   </div>
 </section>
 
-<!-- ══ SKILLS ═══════════════════════════════════════ -->
+<!-- SKILLS -->
 <section id="skills" class="section">
   <div class="container">
     <div class="tag reveal">Our Skills</div>
@@ -920,7 +932,7 @@
   </div>
 </section>
 
-<!-- ══ SERVICES ═════════════════════════════════════ -->
+<!-- SERVICES -->
 <section id="services" class="section">
   <div class="container">
     <div class="tag reveal">Services</div>
@@ -932,7 +944,7 @@
   </div>
 </section>
 
-<!-- ══ PROJECTS ═════════════════════════════════════ -->
+<!-- PROJECTS -->
 <section id="projects" class="section">
   <div class="container">
     <div class="tag reveal">Portfolio</div>
@@ -942,17 +954,20 @@
   </div>
 </section>
 
-<!-- ══ TEAM ══════════════════════════════════════════ -->
+<!-- TEAM -->
 <section id="team" class="section">
   <div class="container">
     <div class="tag reveal">Our Team</div>
     <h2 class="section-title reveal">Meet the <span class="grad-text">Team</span></h2>
     <p class="section-sub reveal">A dedicated squad of creative minds working together to deliver excellence.</p>
     <div class="team-grid" id="teamGrid"></div>
+    <div style="text-align:center;margin-top:36px;" class="reveal">
+      <a href="portfolio.html" class="btn btn-primary" style="font-size:.9rem;padding:14px 36px;">View Full Team Portfolio ↗</a>
+    </div>
   </div>
 </section>
 
-<!-- ══ HOW WE WORK ════════════════════════════════════ -->
+<!-- PROCESS -->
 <section id="process" class="section">
   <div class="container">
     <div class="tag reveal">Our Process</div>
@@ -983,7 +998,7 @@
   </div>
 </section>
 
-<!-- ══ PRICING ════════════════════════════════════════ -->
+<!-- PRICING -->
 <section id="pricing" class="section">
   <div class="container">
     <div class="tag reveal">Transparent Pricing</div>
@@ -1049,7 +1064,7 @@
   </div>
 </section>
 
-<!-- ══ COMMITMENT ══════════════════════════════════════ -->
+<!-- COMMITMENT -->
 <section id="testimonials" class="section">
   <div class="container">
     <div class="tag reveal">Our Promise to You</div>
@@ -1084,7 +1099,7 @@
   </div>
 </section>
 
-<!-- ══ WHY US ════════════════════════════════════════ -->
+<!-- WHY US -->
 <section id="why" class="section">
   <div class="container">
     <div class="tag reveal">Why NT TechWorks</div>
@@ -1094,7 +1109,7 @@
   </div>
 </section>
 
-<!-- ══ CONTACT ════════════════════════════════════════ -->
+<!-- CONTACT -->
 <section id="contact" class="section">
   <div class="container">
     <div class="tag reveal">Get In Touch</div>
@@ -1150,6 +1165,7 @@
             <textarea id="fmsg" rows="4" placeholder="Tell us about your project…" required></textarea>
           </div>
           <div class="form-success" id="formSuccess">✅ Message sent! We'll get back to you shortly.</div>
+          <div class="form-error" id="formError">❌ Failed to send. Please try again or contact us directly.</div>
           <button type="submit" class="btn btn-primary contact-submit-btn">Send Message ✈</button>
         </form>
       </div>
@@ -1157,7 +1173,7 @@
   </div>
 </section>
 
-<!-- ══ FOOTER ════════════════════════════════════════ -->
+<!-- FOOTER -->
 <footer>
   <div class="container">
     <div class="footer-top">
@@ -1187,16 +1203,22 @@
   </div>
 </footer>
 
-<!-- Voice Controls -->
 <div class="voice-ripple" id="voiceRipple"></div>
 <button id="voiceMuteBtn" title="Mute/Unmute voice assistant" aria-label="Toggle voice">🔊</button>
-
-<!-- Back to Top -->
 <button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
-<!-- ══ JAVASCRIPT ═════════════════════════════════════ -->
 <script>
-// ── DATA ────────────────────────────────────────────
+// ════════════════════════════════════════════════
+// ✅ EMAILJS CONFIG — உன் keys இங்க போடு
+// ════════════════════════════════════════════════
+const EJ_SERVICE  = "service_xxxxxxx";   // 👈 உன் EmailJS Service ID
+const EJ_TEMPLATE = "template_xxxxxxx";  // 👈 உன் EmailJS Template ID
+const EJ_KEY      = "xxxxxxxxxxxxxxx";   // 👈 உன் EmailJS Public Key
+
+emailjs.init(EJ_KEY);
+// ════════════════════════════════════════════════
+
+// ── DATA ──
 const SKILLS = [
   { icon:'🌐', name:'HTML & CSS',             pct:95 },
   { icon:'⚡', name:'JavaScript (ES6+)',      pct:90 },
@@ -1223,10 +1245,42 @@ const SERVICES = [
 ];
 
 const PROJECTS = [
-  { thumbClass:'thumb-restaurant', badgeClass:'badge-restaurant', badgeLabel:'🍽 Restaurant', img:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80', alt:'Restaurant website', title:'Spice Garden Restaurant', techs:['HTML','CSS','JavaScript','React'], live:'#' },
-  { thumbClass:'thumb-gym',        badgeClass:'badge-gym',        badgeLabel:'💪 Fitness',    img:'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1200&q=80', alt:'Gym website',        title:'FitPulse Gym & Fitness',   techs:['HTML','CSS','JavaScript','React'], live:'https://nttechworks5.github.io/NT_lifestyle/' },
-  { thumbClass:'thumb-ecom',       badgeClass:'badge-ecom',       badgeLabel:'🛒 E-Commerce', img:'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1200&q=80', alt:'E-commerce website', title:'ShopEase E-Commerce',      techs:['HTML','CSS','JavaScript','React'], live:'https://dhanushtech80.github.io/nt-fashions/' },
-  { thumbClass:'thumb-portfolio',  badgeClass:'badge-portfolio',  badgeLabel:'🎨 Portfolio',  img:'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=80', alt:'Portfolio website',  title:'Personal Portfolio Website',techs:['HTML','CSS','JavaScript','React'], live:'#' },
+  {
+    thumbClass:'thumb-restaurant', badgeClass:'badge-restaurant', badgeLabel:'🍽 Restaurant',
+    img:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
+    alt:'Restaurant website', title:'Spice Garden Restaurant',
+    techs:['HTML','CSS','JavaScript','React'], live:'#'
+  },
+  {
+    thumbClass:'thumb-gym', badgeClass:'badge-gym', badgeLabel:'💪 Fitness',
+    img:'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1200&q=80',
+    alt:'Gym website', title:'FitPulse Gym & Fitness',
+    techs:['HTML','CSS','JavaScript','React'], live:'https://nttechworks5.github.io/NT_lifestyle/'
+  },
+  {
+    thumbClass:'thumb-ecom', badgeClass:'badge-ecom', badgeLabel:'🛒 E-Commerce',
+    img:'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1200&q=80',
+    alt:'E-commerce website', title:'ShopEase E-Commerce',
+    techs:['HTML','CSS','JavaScript','React'], live:'https://dhanushtech80.github.io/nt-fashions/'
+  },
+  {
+    thumbClass:'thumb-portfolio', badgeClass:'badge-portfolio', badgeLabel:'🎨 Portfolio',
+    img:'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=80',
+    alt:'Portfolio website', title:'Team Portfolio',
+    techs:['HTML','CSS','JavaScript','React'], live:'portfolio.html'
+  },
+  {
+    thumbClass:'thumb-edtech', badgeClass:'badge-edtech', badgeLabel:'📚 EdTech',
+    img:'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
+    alt:'EdTech website', title:'EdTech Learning Platform',
+    techs:['HTML','CSS','JavaScript','React'], live:'#', comingSoon:true
+  },
+  {
+    thumbClass:'thumb-audiobook', badgeClass:'badge-audiobook', badgeLabel:'🎧 Audio Book',
+    img:'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1200&q=80',
+    alt:'Audio book website', title:'Kumari Kandam — Audio Book',
+    techs:['HTML','CSS','JavaScript','React'], live:'#', comingSoon:true
+  },
 ];
 
 const TEAM = [
@@ -1246,7 +1300,7 @@ const WHY = [
   { icon:'💪', title:'Long-Term Support',    desc:"We're here to help even after launch. Updates, maintenance, and ongoing optimization included." },
 ];
 
-// ── RENDER ──────────────────────────────────────────
+// ── RENDER ──
 function renderSkills() {
   const g = document.getElementById('skillsGrid');
   g.innerHTML = SKILLS.map((s,i) => `
@@ -1280,18 +1334,22 @@ function renderProjects() {
         <div class="project-skills">${p.techs.map(t=>`<span class="project-skill">${t}</span>`).join('')}</div>
       </div>
       <div class="project-footer">
-        <a href="${p.live}" class="project-link">View Live <span class="project-link-arrow">→</span></a>
+        ${p.comingSoon
+          ? `<span class="project-link coming-soon">🔜 Link Coming Soon</span>`
+          : `<a href="${p.live}" ${p.live !== '#' ? 'target="_blank"' : ''} class="project-link">View Live <span class="project-link-arrow">→</span></a>`
+        }
       </div>
     </div>`).join('');
 }
 
 function renderTeam() {
   document.getElementById('teamGrid').innerHTML = TEAM.map((m,i) => `
-    <div class="team-card reveal" style="transition-delay:${i*.08}s">
+    <div class="team-card reveal" style="transition-delay:${i*.08}s" onclick="window.location.href='portfolio.html'">
       <div class="team-avatar">${m.emoji}</div>
       <div class="team-name">${m.name}</div>
       <div class="team-role">${m.role}</div>
       <div class="team-desc">${m.desc}</div>
+      <span class="team-portfolio-link">View Portfolio →</span>
     </div>`).join('');
 }
 
@@ -1303,7 +1361,7 @@ function renderWhy() {
     </div>`).join('');
 }
 
-// ── SCROLL OBSERVER ──────────────────────────────────
+// ── SCROLL OBSERVER ──
 function setupObserver() {
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -1319,7 +1377,7 @@ function setupObserver() {
   document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => obs.observe(el));
 }
 
-// ── SERVICES MARQUEE DIRECTION ────────────────────────
+// ── SERVICES MARQUEE DIRECTION ──
 (function(){
   let lastY = 0;
   window.addEventListener('scroll', () => {
@@ -1331,13 +1389,12 @@ function setupObserver() {
   }, { passive: true });
 })();
 
-// ── TYPING TEXT ──────────────────────────────────────
 function setupTyping() {
   const el = document.querySelector('.typing-text');
   if (el) el.textContent = 'Websites';
 }
 
-// ── NAVBAR + BTT ─────────────────────────────────────
+// ── NAVBAR + BTT ──
 window.addEventListener('scroll', () => {
   const nav = document.getElementById('navbar');
   const btt = document.getElementById('btt');
@@ -1345,7 +1402,7 @@ window.addEventListener('scroll', () => {
   if (window.scrollY > 400) btt.classList.add('show'); else btt.classList.remove('show');
 }, { passive: true });
 
-// ── SMOOTH SCROLL ANIMATION ───────────────────────────
+// ── SMOOTH SCROLL ANIMATION ──
 function setupSmoothScrollAnimation() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const parallaxEls = [...document.querySelectorAll('#hero .hero-bg video, #hero .hero-overlay')];
@@ -1375,7 +1432,7 @@ function setupSmoothScrollAnimation() {
   animate();
 }
 
-// ── HAMBURGER / MOBILE MENU ───────────────────────────
+// ── HAMBURGER / MOBILE MENU ──
 const ham = document.getElementById('hamburger');
 const mob = document.getElementById('mobileMenu');
 const overlay = document.getElementById('mobileOverlay');
@@ -1392,43 +1449,78 @@ ham.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') {
 window.addEventListener('resize', () => { if (window.innerWidth > 768 && mob.classList.contains('open')) setMobileMenu(false); });
 function closeMobile() { setMobileMenu(false); }
 
-// ── CONTACT FORM ─────────────────────────────────────
+// ════════════════════════════════════════════════
+// ✅ CONTACT FORM — EmailJS Integration
+// ════════════════════════════════════════════════
 document.getElementById('contactForm').addEventListener('submit', function(e) {
   e.preventDefault();
-  const btn = this.querySelector('button[type=submit]');
-  btn.textContent = 'Sending…'; btn.disabled = true;
-  setTimeout(() => {
-    btn.style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'flex';
-    this.reset();
-    setTimeout(() => {
-      btn.style.display = 'flex'; btn.textContent = 'Send Message ✈'; btn.disabled = false;
-      document.getElementById('formSuccess').style.display = 'none';
-    }, 5000);
-  }, 1000);
+
+  const btn       = this.querySelector('button[type=submit]');
+  const successEl = document.getElementById('formSuccess');
+  const errorEl   = document.getElementById('formError');
+
+  // Reset states
+  successEl.style.display = 'none';
+  errorEl.style.display   = 'none';
+  btn.textContent  = 'Sending…';
+  btn.disabled     = true;
+
+  const templateParams = {
+    from_name : document.getElementById('fname').value.trim(),
+    reply_to  : document.getElementById('femail').value.trim(),
+    message   : document.getElementById('fmsg').value.trim()
+  };
+
+  emailjs.send(EJ_SERVICE, EJ_TEMPLATE, templateParams)
+    .then(() => {
+      // ✅ SUCCESS
+      btn.style.display      = 'none';
+      successEl.style.display = 'flex';
+      this.reset();
+
+      speakText([
+        "Thank you so much for contacting us!",
+        "We have received your message and will get back to you very soon.",
+        "We look forward to working with you. Please visit us again!"
+      ]);
+      showThankYouToast();
+
+      setTimeout(() => {
+        btn.style.display      = 'flex';
+        btn.textContent        = 'Send Message ✈';
+        btn.disabled           = false;
+        successEl.style.display = 'none';
+      }, 5000);
+    })
+    .catch((err) => {
+      // ❌ ERROR
+      console.error('EmailJS Error:', err);
+      errorEl.style.display = 'flex';
+      btn.textContent       = 'Try Again ↺';
+      btn.disabled          = false;
+
+      setTimeout(() => {
+        errorEl.style.display = 'none';
+        btn.textContent       = 'Send Message ✈';
+      }, 5000);
+    });
 });
+// ════════════════════════════════════════════════
 
-// ══════════════════════════════════════════════════════
-// ── VOICE ENGINE (Instagram/Mobile Browser Compatible)
-// ══════════════════════════════════════════════════════
-
+// ── VOICE ENGINE ──
 let isMuted = false;
-let voiceUnlocked = false; // KEY FIX: track if user has interacted
-let pendingWelcomeSpeech = false;
-let audioCtxUnlocked = false;
+let voiceUnlocked = false;
 
-const muteBtn = document.getElementById('voiceMuteBtn');
-const rippleEl = document.getElementById('voiceRipple');
+const muteBtn       = document.getElementById('voiceMuteBtn');
+const rippleEl      = document.getElementById('voiceRipple');
 const voiceUnlockBanner = document.getElementById('voiceUnlockBanner');
-const welcomeOverlay = document.getElementById('welcomeOverlay');
+const welcomeOverlay    = document.getElementById('welcomeOverlay');
 
 muteBtn.classList.add('show');
 
-// ── Safe synth check ──────────────────────────────────
 const synth = ('speechSynthesis' in window) ? window.speechSynthesis : null;
-
-// ── Preferred voice ───────────────────────────────────
 let preferredVoice = null;
+
 function getPreferredVoice() {
   if (!synth) return null;
   if (preferredVoice) return preferredVoice;
@@ -1451,12 +1543,10 @@ function triggerRipple() {
   rippleEl.classList.add('active');
 }
 
-// ── Core speak — only after user gesture ─────────────
 function speakText(sentences, onDone) {
   if (!synth || isMuted || !voiceUnlocked || !sentences || !sentences.length) {
     onDone && onDone(); return;
   }
-  // Instagram fix: cancel + small delay before speaking
   synth.cancel();
   setTimeout(() => {
     let i = 0;
@@ -1475,7 +1565,6 @@ function speakText(sentences, onDone) {
   }, 120);
 }
 
-// ── Play welcome chime (Web Audio) ───────────────────
 function playWelcomeChime() {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1488,7 +1577,7 @@ function playWelcomeChime() {
       { freq:1046.5, start:1.20, dur:1.2,  gain:0.13 },
     ];
     notes.forEach(n => {
-      const osc = ctx.createOscillator();
+      const osc  = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.connect(gain); gain.connect(ctx.destination);
       osc.type = 'sine'; osc.frequency.value = n.freq;
@@ -1502,14 +1591,9 @@ function playWelcomeChime() {
   } catch(e) { return Promise.resolve(); }
 }
 
-// ══════════════════════════════════════════════════════
-// ── WELCOME OVERLAY — shown immediately, voice waits
-// ══════════════════════════════════════════════════════
 (function(){
   const emojiContainer = document.getElementById('welcomeEmojis');
   const emojis = ['🎉','🚀','💻','✨','🌟','🎊'];
-
-  // Show overlay after short delay
   setTimeout(() => {
     welcomeOverlay.classList.add('show');
     emojis.forEach((em, i) => {
@@ -1520,28 +1604,16 @@ function playWelcomeChime() {
       emojiContainer.appendChild(span);
     });
   }, 300);
-
-  // When user taps overlay → unlock voice + dismiss
-  welcomeOverlay.addEventListener('click', () => {
-    unlockVoiceAndStart();
-  }, { once: true });
+  welcomeOverlay.addEventListener('click', () => { unlockVoiceAndStart(); }, { once: true });
 })();
 
-// ── VOICE UNLOCK BANNER — visible at top ─────────────
-// Dismiss banner once user interacts anywhere
 function unlockVoiceAndStart() {
   if (voiceUnlocked) return;
   voiceUnlocked = true;
-
-  // Hide banner
   voiceUnlockBanner.classList.add('hidden');
-
-  // Dismiss overlay
   welcomeOverlay.style.transition = 'opacity .7s ease';
   welcomeOverlay.classList.remove('show');
   setTimeout(() => { try { welcomeOverlay.remove(); } catch(e){} }, 700);
-
-  // Play chime then speak welcome
   playWelcomeChime().then(() => {
     speakText([
       "N T Tech Works welcomes you!",
@@ -1551,10 +1623,8 @@ function unlockVoiceAndStart() {
   });
 }
 
-// Banner tap
 voiceUnlockBanner.addEventListener('click', unlockVoiceAndStart);
 
-// Also unlock on first scroll or touch (silent — no voice)
 function silentUnlock() {
   if (voiceUnlocked) return;
   voiceUnlocked = true;
@@ -1565,9 +1635,6 @@ function silentUnlock() {
 }
 window.addEventListener('touchstart', silentUnlock, { once: true, passive: true });
 
-// ══════════════════════════════════════════════════════
-// ── SECTION VOICE SCRIPTS ─────────────────────────────
-// ══════════════════════════════════════════════════════
 const SECTION_SCRIPTS = {
   about: [
     "You are now in the About section.",
@@ -1586,13 +1653,13 @@ const SECTION_SCRIPTS = {
   ],
   projects: [
     "These are our projects.",
-    "Spice Garden Restaurant, FitPulse Gym and Fitness, ShopEase E-Commerce store, and a Personal Portfolio.",
+    "Spice Garden Restaurant, FitPulse Gym, ShopEase E-Commerce, Team Portfolio, EdTech Platform, and Kumari Kandam Audio Book.",
     "Each project is built with full care, clean code, and attention to detail."
   ],
   team: [
     "Meet our team.",
-    "Niranjan — Founder and Frontend Developer. Gowtham — UI and UX Designer. Mahesh — Tester. Harisudhan — Backend Developer. Dhanush — Frontend Developer.",
-    "Together, we build websites that make a real difference."
+    "Niranjan, Gowtham, Mahesh, Harisudhan, and Dhanush.",
+    "Click on any team member to view their individual portfolio and works."
   ],
   process: [
     "This is how we work.",
@@ -1624,7 +1691,6 @@ const SECTION_SCRIPTS = {
   ]
 };
 
-// ── FAST SCROLL BANNER ───────────────────────────────
 const fastScrollBanner = document.getElementById('fastScrollBanner');
 let fastBannerTimer = null;
 let fastMsgIndex = 0;
@@ -1643,7 +1709,6 @@ function showFastScrollBanner() {
   fastBannerTimer = setTimeout(() => fastScrollBanner.classList.remove('show'), 3000);
 }
 
-// ── SCROLL-STOP DETECTION ─────────────────────────────
 let scrollStopTimer = null;
 let currentVisibleSection = null;
 const spokenSections = new Set();
@@ -1669,10 +1734,8 @@ window.addEventListener('scroll', () => {
   const speed = Math.abs(curY - prevScrollY) / Math.max(1, now - prevScrollTime);
   if (speed > 1.8) showFastScrollBanner();
   prevScrollY = curY; prevScrollTime = now;
-
   clearTimeout(scrollStopTimer);
   if (synth && synth.speaking) synth.cancel();
-
   scrollStopTimer = setTimeout(() => {
     const id = currentVisibleSection;
     if (!id || !SECTION_SCRIPTS[id] || isMuted || !voiceUnlocked) return;
@@ -1682,7 +1745,6 @@ window.addEventListener('scroll', () => {
   }, 950);
 }, { passive: true });
 
-// Reset spoken sections on leave
 const resetObs = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) spokenSections.delete(entry.target.id);
@@ -1693,18 +1755,6 @@ Object.keys(SECTION_SCRIPTS).forEach(id => {
   if (el) resetObs.observe(el);
 });
 
-// ── FORM SUBMIT — THANK YOU VOICE + TOAST ─────────────
-document.getElementById('contactForm').addEventListener('submit', function() {
-  setTimeout(() => {
-    speakText([
-      "Thank you so much for contacting us!",
-      "We have received your message and will get back to you very soon.",
-      "We look forward to working with you. Please visit us again!"
-    ]);
-    showThankYouToast();
-  }, 1200);
-});
-
 function showThankYouToast() {
   const toast = document.getElementById('thankYouToast');
   if (!toast) return;
@@ -1712,7 +1762,6 @@ function showThankYouToast() {
   setTimeout(() => toast.classList.remove('show'), 7000);
 }
 
-// ── MUTE BUTTON ───────────────────────────────────────
 muteBtn.addEventListener('click', () => {
   isMuted = !isMuted;
   if (isMuted) {
@@ -1724,12 +1773,10 @@ muteBtn.addEventListener('click', () => {
     muteBtn.textContent = '🔊';
     muteBtn.classList.remove('muted');
     muteBtn.title = 'Mute voice';
-    // Unlock voice if mute btn tapped (user gesture)
     if (!voiceUnlocked) unlockVoiceAndStart();
   }
 });
 
-// ── INIT ──────────────────────────────────────────────
 renderSkills();
 renderServices();
 renderProjects();
