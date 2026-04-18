@@ -281,6 +281,64 @@
   .chip2 { bottom: 20px; left: -40px; animation-delay: 2.5s; color: #c3e88d; }
   .chip3 { bottom: -20px; right: 10px; animation-delay: 1.8s; color: var(--accent3); }
 
+  /* ── WELCOME MUSIC BAR ──────────────────────────── */
+  .welcome-music-bar {
+    display: flex; align-items: flex-end; gap: 5px;
+    height: 40px; margin-top: 24px;
+    opacity: 0; transition: opacity .4s ease .6s;
+  }
+  #welcomeOverlay.show .welcome-music-bar { opacity: 1; }
+  .welcome-music-bar span {
+    display: block; width: 6px; border-radius: 3px;
+    background: linear-gradient(180deg, var(--accent), var(--accent2));
+    animation: musicBeat 0.8s ease-in-out infinite alternate;
+  }
+  .welcome-music-bar span:nth-child(1){ height:18px; animation-delay:0s; }
+  .welcome-music-bar span:nth-child(2){ height:30px; animation-delay:.12s; }
+  .welcome-music-bar span:nth-child(3){ height:38px; animation-delay:.24s; }
+  .welcome-music-bar span:nth-child(4){ height:26px; animation-delay:.36s; }
+  .welcome-music-bar span:nth-child(5){ height:14px; animation-delay:.48s; }
+  @keyframes musicBeat {
+    from { transform: scaleY(0.4); opacity:.6; }
+    to   { transform: scaleY(1.0); opacity:1;  }
+  }
+
+  /* ── THANK YOU TOAST ─────────────────────────────── */
+  .thank-you-toast {
+    position: fixed; bottom: 30px; right: 24px; z-index: 9999;
+    display: flex; align-items: center; gap: 14px;
+    background: rgba(13,19,48,.97); border: 1px solid rgba(52,213,255,.4);
+    border-radius: 16px; padding: 18px 22px;
+    box-shadow: 0 16px 48px rgba(0,0,0,.5), 0 0 30px rgba(52,213,255,.1);
+    max-width: 340px; backdrop-filter: blur(20px);
+    transform: translateY(120px); opacity: 0;
+    transition: transform .5s cubic-bezier(.22,1,.36,1), opacity .4s ease;
+    pointer-events: none;
+  }
+  .thank-you-toast.show {
+    transform: translateY(0); opacity: 1; pointer-events: auto;
+  }
+  .ty-icon { font-size: 2rem; flex-shrink: 0; }
+  .ty-text { display: flex; flex-direction: column; gap: 3px; }
+  .ty-text strong { font-family: var(--font-head); font-size: .95rem; color: var(--text); }
+  .ty-text span   { font-size: .8rem; color: var(--accent); }
+
+  /* ── FAST SCROLL BANNER ──────────────────────────── */
+  #fastScrollBanner {
+    position: fixed; top: 70px; left: 50%; transform: translateX(-50%) translateY(-80px);
+    z-index: 2000; background: rgba(13,19,48,.97);
+    border: 1px solid rgba(52,213,255,.35); border-radius: 99px;
+    padding: 10px 24px; font-family: var(--font-head);
+    font-size: .82rem; font-weight: 700; color: var(--accent);
+    white-space: nowrap; opacity: 0;
+    transition: transform .4s cubic-bezier(.22,1,.36,1), opacity .4s ease;
+    pointer-events: none; backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px rgba(0,0,0,.4);
+  }
+  #fastScrollBanner.show {
+    transform: translateX(-50%) translateY(0); opacity: 1;
+  }
+
   /* ── WELCOME OVERLAY ────────────────────────────── */
   #welcomeOverlay {
     position: fixed; inset: 0; z-index: 10000;
@@ -486,20 +544,6 @@
   .form-success { display: none; align-items: center; gap: 12px; background: rgba(39,201,63,.12); border: 1px solid rgba(39,201,63,.3); border-radius: 12px; padding: 16px 20px; color: #27c93f; font-weight: 600; font-size: .9rem; }
 
   /* ── THANK YOU TOAST ────────────────────────────── */
-  #thankYouToast {
-    position: fixed; bottom: 140px; right: 28px;
-    background: linear-gradient(135deg, rgba(39,201,63,.15), rgba(52,213,255,.12));
-    border: 1px solid rgba(39,201,63,.4);
-    border-radius: 16px; padding: 18px 22px;
-    max-width: 320px; z-index: 9990;
-    display: flex; flex-direction: column; gap: 6px;
-    transform: translateX(120%); opacity: 0;
-    transition: transform .4s cubic-bezier(.22,1,.36,1), opacity .4s ease;
-    backdrop-filter: blur(12px);
-  }
-  #thankYouToast.show { transform: translateX(0); opacity: 1; }
-  .toast-title { font-family: var(--font-head); font-weight: 700; font-size: 1rem; color: #27c93f; }
-  .toast-sub { font-size: .82rem; color: var(--muted); line-height: 1.5; }
 
   /* ── FOOTER ─────────────────────────────────────── */
   footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 60px 0 32px; }
@@ -711,7 +755,22 @@
   <div class="welcome-emoji-container" id="welcomeEmojis"></div>
   <div class="welcome-title">Welcome to NT TechWorks! 🚀</div>
   <div class="welcome-sub">We build modern, beautiful &amp; responsive websites</div>
+  <div class="welcome-music-bar" id="welcomeMusicBar">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
 </div>
+
+<!-- ══ THANK YOU TOAST (form submit) ════════════════ -->
+<div id="thankYouToast" class="thank-you-toast">
+  <div class="ty-icon">🎉</div>
+  <div class="ty-text">
+    <strong>Thank you for reaching out!</strong>
+    <span>We'll get back to you soon. Please visit us again!</span>
+  </div>
+</div>
+
+<!-- ══ FAST SCROLL BANNER ══════════════════════════ -->
+<div id="fastScrollBanner">⚡ We are trusted — we never waste your money!</div>
 
 <!-- ══ NAVBAR ══════════════════════════════════════ -->
 <nav id="navbar">
@@ -1122,11 +1181,6 @@
   </div>
 </footer>
 
-<!-- Thank You Toast -->
-<div id="thankYouToast">
-  <div class="toast-title">🙏 Thank You!</div>
-  <div class="toast-sub">Your message is received! We'll contact you soon to discuss your project. Looking forward to working with you!</div>
-</div>
 
 <!-- Voice Controls -->
 <div class="voice-ripple" id="voiceRipple"></div>
@@ -1333,7 +1387,7 @@ ham.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') {
 window.addEventListener('resize', () => { if (window.innerWidth > 768 && mob.classList.contains('open')) setMobileMenu(false); });
 function closeMobile() { setMobileMenu(false); }
 
-// ── CONTACT FORM + THANK YOU TOAST ────────────────────
+// ── CONTACT FORM ─────────────────────────────────────
 document.getElementById('contactForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const btn = this.querySelector('button[type=submit]');
@@ -1342,13 +1396,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     btn.style.display = 'none';
     document.getElementById('formSuccess').style.display = 'flex';
     this.reset();
-    showThankYouToast();
-    speakText([
-      "Thank you so much for contacting us!",
-      "We have received your message.",
-      "We will reach out to you very soon to discuss your project.",
-      "Looking forward to working with you!"
-    ]);
+    // Voice + toast handled by patchFormForVoice (runs after 1200ms)
     setTimeout(() => {
       btn.style.display = 'flex'; btn.textContent = 'Send Message ✈'; btn.disabled = false;
       document.getElementById('formSuccess').style.display = 'none';
@@ -1356,19 +1404,108 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   }, 1000);
 });
 
-function showThankYouToast() {
-  const toast = document.getElementById('thankYouToast');
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 6000);
+// ══════════════════════════════════════════════════════
+// ── VOICE ENGINE ──────────────────────────────────────
+// ══════════════════════════════════════════════════════
+
+let isMuted = false;
+const synth = window.speechSynthesis;
+const muteBtn = document.getElementById('voiceMuteBtn');
+const rippleEl = document.getElementById('voiceRipple');
+
+muteBtn.classList.add('show');
+
+// ── Preferred voice (same voice used throughout) ──────
+let preferredVoice = null;
+function getPreferredVoice() {
+  if (preferredVoice) return preferredVoice;
+  const voices = synth.getVoices();
+  preferredVoice =
+    voices.find(v => /Google US English/i.test(v.name) && v.lang === 'en-US') ||
+    voices.find(v => /Samantha|Karen|Moira/i.test(v.name)) ||
+    voices.find(v => v.lang === 'en-US') ||
+    voices[0] || null;
+  return preferredVoice;
+}
+// Voices load async on some browsers
+if (synth.onvoiceschanged !== undefined) {
+  synth.onvoiceschanged = () => { preferredVoice = null; getPreferredVoice(); };
+}
+
+function triggerRipple() {
+  rippleEl.classList.remove('active');
+  void rippleEl.offsetWidth;
+  rippleEl.classList.add('active');
+}
+
+// ── Core speak function ───────────────────────────────
+function speakText(sentences, onDone) {
+  if (!synth || isMuted || !sentences || !sentences.length) { onDone && onDone(); return; }
+  synth.cancel();
+  let i = 0;
+  function next() {
+    if (i >= sentences.length || isMuted) { onDone && onDone(); return; }
+    const utt = new SpeechSynthesisUtterance(sentences[i]);
+    utt.volume = 0.92; utt.rate = 0.9; utt.pitch = 1.05; utt.lang = 'en-US';
+    const v = getPreferredVoice();
+    if (v) utt.voice = v;
+    if (i === 0) utt.onstart = triggerRipple;
+    utt.onend  = () => { i++; setTimeout(next, 250); };
+    utt.onerror= () => { i++; setTimeout(next, 250); };
+    synth.speak(utt);
+  }
+  next();
 }
 
 // ══════════════════════════════════════════════════════
-// ── WELCOME OVERLAY ───────────────────────────────────
+// ── WELCOME OVERLAY + BACKGROUND MUSIC ────────────────
 // ══════════════════════════════════════════════════════
 (function(){
-  const overlay = document.getElementById('welcomeOverlay');
+  const overlay      = document.getElementById('welcomeOverlay');
   const emojiContainer = document.getElementById('welcomeEmojis');
-  const emojis = ['🎉','🚀','💻','✨','🌟','🎊'];
+  const emojis       = ['🎉','🚀','💻','✨','🌟','🎊'];
+
+  // ── Generate a pleasant welcome chime using Web Audio API ──
+  function playWelcomeMusic() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+      // Chord notes (C major arpeggio + melody)
+      const notes = [
+        { freq: 523.25, start: 0.0,  dur: 0.5,  gain: 0.18 },  // C5
+        { freq: 659.25, start: 0.15, dur: 0.5,  gain: 0.16 },  // E5
+        { freq: 783.99, start: 0.30, dur: 0.5,  gain: 0.16 },  // G5
+        { freq: 1046.5, start: 0.50, dur: 0.8,  gain: 0.14 },  // C6
+        { freq: 880.00, start: 0.90, dur: 0.4,  gain: 0.12 },  // A5
+        { freq: 1046.5, start: 1.20, dur: 1.2,  gain: 0.13 },  // C6 sustain
+        { freq: 783.99, start: 1.50, dur: 0.4,  gain: 0.10 },  // G5
+        { freq: 659.25, start: 1.80, dur: 0.5,  gain: 0.10 },  // E5
+        { freq: 523.25, start: 2.10, dur: 1.5,  gain: 0.12 },  // C5 final
+      ];
+
+      notes.forEach(n => {
+        const osc  = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+
+        osc.type = 'sine';
+        osc.frequency.value = n.freq;
+
+        const t = ctx.currentTime + n.start;
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(n.gain, t + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + n.dur);
+
+        osc.start(t);
+        osc.stop(t + n.dur + 0.05);
+      });
+
+      // Return promise that resolves after ~0.6s (let music start before voice)
+      return new Promise(res => setTimeout(res, 600));
+    } catch(e) {
+      return Promise.resolve();
+    }
+  }
 
   function showWelcome() {
     overlay.classList.add('show');
@@ -1380,105 +1517,122 @@ function showThankYouToast() {
       emojiContainer.appendChild(span);
     });
 
-    // Speak welcome as soon as overlay appears
-    // Small delay to let speech synthesis initialize
-    setTimeout(() => {
-      speakText(["Welcome to N T Tech Works! We build modern and beautiful websites. Please scroll down to explore our work."]);
-    }, 600);
+    // Play music first, then voice
+    playWelcomeMusic().then(() => {
+      speakText([
+        "N T Tech Works welcomes you!",
+        "We build modern, beautiful, and responsive websites.",
+        "Please scroll down to explore our work."
+      ]);
+    });
 
-    // Hide after 4.5 seconds — smooth fade out
+    // Hide after 5 seconds
     setTimeout(() => {
       overlay.style.transition = 'opacity .7s ease';
       overlay.classList.remove('show');
       setTimeout(() => overlay.remove(), 700);
-    }, 4500);
+    }, 5000);
   }
 
-  showWelcome();
+  // Delay slightly to ensure AudioContext can be created after user gesture or page load
+  setTimeout(showWelcome, 300);
 })();
 
 // ══════════════════════════════════════════════════════
-// ── VOICE ASSISTANT — SCROLL-STOP SYSTEM ─────────────
+// ── SECTION SCRIPTS ───────────────────────────────────
 // ══════════════════════════════════════════════════════
 
-let isMuted = false;
-const synth = window.speechSynthesis;
-const muteBtn = document.getElementById('voiceMuteBtn');
-const rippleEl = document.getElementById('voiceRipple');
-
-// Show mute button always (voice is auto-started)
-muteBtn.classList.add('show');
-
-function triggerRipple() {
-  rippleEl.classList.remove('active');
-  void rippleEl.offsetWidth;
-  rippleEl.classList.add('active');
-}
-
-function speakText(sentences, onDone) {
-  if (!synth || isMuted || !sentences || !sentences.length) { onDone && onDone(); return; }
-  synth.cancel();
-  let i = 0;
-  function next() {
-    if (i >= sentences.length || isMuted) { onDone && onDone(); return; }
-    const utt = new SpeechSynthesisUtterance(sentences[i]);
-    utt.volume = 0.85; utt.rate = 0.88; utt.pitch = 1.0; utt.lang = 'en-US';
-    const voices = synth.getVoices();
-    const v = voices.find(v => /Google US English|Samantha|Karen|Daniel|Moira/i.test(v.name));
-    if (v) utt.voice = v;
-    if (i === 0) utt.onstart = triggerRipple;
-    utt.onend  = () => { i++; setTimeout(next, 280); };
-    utt.onerror= () => { i++; setTimeout(next, 280); };
-    synth.speak(utt);
-  }
-  next();
-}
-
-// Section scripts
 const SECTION_SCRIPTS = {
   about: [
-    "Welcome to the About section. We are N T Tech Works — a small, passionate team that builds clean, modern, and responsive websites. Our goal is quality work and long-term trust."
+    "You are now in the About section.",
+    "We are N T Tech Works — a small, passionate team building clean, modern, and responsive websites.",
+    "Our goal is simple: quality work, honest service, and long-term trust with every client."
   ],
   skills: [
-    "Here are our technical skills. We work with HTML, CSS, and JavaScript — along with responsive design, React, Node dot js, SEO, and more. Every tool chosen to build the best websites."
+    "Here are our technical skills.",
+    "We work with HTML, CSS, JavaScript, responsive design, React, Node dot JS, and SEO.",
+    "Every tool is carefully chosen to build the best websites for your business."
   ],
   services: [
-    "Here are our services. We build business and restaurant websites, gym and fitness sites, e-commerce stores, portfolios, landing pages, and lead generation forms. Everything your business needs online."
+    "Here are the services we offer.",
+    "We build business websites, restaurant sites, gym and fitness pages, e-commerce stores, portfolios, and lead generation forms.",
+    "Whatever your business needs online — we have got you covered."
   ],
   projects: [
-    "These are our projects. Spice Garden Restaurant, FitPulse Gym and Fitness, ShopEase E-Commerce store, and a Personal Portfolio website. Each built with full care and clean code."
+    "These are our projects.",
+    "Spice Garden Restaurant, FitPulse Gym and Fitness, ShopEase E-Commerce store, and a Personal Portfolio.",
+    "Each project is built with full care, clean code, and attention to detail."
   ],
   team: [
-    "Meet our team. Niranjan — Founder and Frontend Developer. Gowtham — UI and UX Designer. Mahesh — Tester. Harisudhan — Backend Developer. Dhanush — Frontend Developer. Together, we build great websites."
+    "Meet our team.",
+    "Niranjan — Founder and Frontend Developer. Gowtham — UI and UX Designer. Mahesh — Tester. Harisudhan — Backend Developer. Dhanush — Frontend Developer.",
+    "Together, we build websites that make a real difference."
   ],
   process: [
-    "This is how we work. Step one — Free consultation. Step two — Design and planning. Step three — Build and deliver. Step four — Launch and ongoing support. Simple, clear, and stress-free."
+    "This is how we work.",
+    "Step one — Free consultation. Step two — Design and planning. Step three — Build and deliver. Step four — Launch and ongoing support.",
+    "Simple, clear, and completely stress-free from start to finish."
   ],
   pricing: [
-    "Here are our pricing plans. Starter plan at four thousand nine hundred and ninety nine rupees. Growth plan at nine thousand nine hundred and ninety nine rupees. Pro Store at eighteen thousand nine hundred and ninety nine rupees. No hidden charges. Honest pricing, always."
+    "Here are our honest pricing plans — no hidden charges, ever.",
+    "The Starter plan is four thousand nine hundred and ninety nine rupees — perfect for individuals and small shops.",
+    "The Growth plan is nine thousand nine hundred and ninety nine rupees — ideal for businesses wanting full features.",
+    "The Pro Store plan is eighteen thousand nine hundred and ninety nine rupees — a complete e-commerce solution with payment gateway.",
+    "We never waste your money. Every rupee you pay goes directly into building your website."
   ],
   testimonials: [
-    "We are a new and energetic team — but our commitment is one hundred percent. You get full dedication, direct communication, and free revisions until you are completely happy. Your success is our reputation."
+    "This is our promise to you.",
+    "We are a new and energetic team — and that means you get our absolute best work on every project.",
+    "You get full dedication, direct communication, and free revisions until you are completely happy.",
+    "Your success is our reputation — and we take that very seriously."
   ],
   why: [
-    "Here is why clients trust us. We focus on quality, speed, and honest communication. Clean code, on-time delivery, and long-term support. We are here for you even after your website goes live."
+    "Here is why clients trust us.",
+    "We focus on quality, speed, and honest communication.",
+    "Clean code, on-time delivery, and long-term support.",
+    "We are here for you even after your website goes live — always just a message away."
   ],
   contact: [
-    "This is the Contact section. You can call us, send an email, or fill in the form right here. The first consultation is completely free. We would love to hear about your project!"
+    "You are in the Contact section.",
+    "You can call us, send an email, or fill in the form right here.",
+    "The first consultation is completely free — no charges, no commitment.",
+    "We would love to hear about your project. Reach out today!"
   ]
 };
 
-// ── SCROLL-STOP DETECTION ─────────────────────────────
-// Voice speaks only when user STOPS scrolling on a section
-// (not while scrolling, not when scrolling fast)
+// ══════════════════════════════════════════════════════
+// ── FAST SCROLL DETECTION + TRUST BANNER ─────────────
+// ══════════════════════════════════════════════════════
 
+const fastScrollBanner = document.getElementById('fastScrollBanner');
+let fastBannerTimer = null;
+let fastBannerShown = false;
+let fastScrollSpoken = false;
+let prevScrollY = window.scrollY;
+let prevScrollTime = Date.now();
+let fastScrollVoiceTimer = null;
+
+const FAST_SCROLL_MESSAGES = [
+  "⚡ We are trustworthy — your money is always safe with us!",
+  "🛡️ We never waste your money — honest pricing, always.",
+  "✅ Trusted team — we deliver what we promise!"
+];
+let fastMsgIndex = 0;
+
+function showFastScrollBanner() {
+  const msg = FAST_SCROLL_MESSAGES[fastMsgIndex % FAST_SCROLL_MESSAGES.length];
+  fastMsgIndex++;
+  fastScrollBanner.textContent = msg;
+  fastScrollBanner.classList.add('show');
+  clearTimeout(fastBannerTimer);
+  fastBannerTimer = setTimeout(() => fastScrollBanner.classList.remove('show'), 3000);
+}
+
+// ── SCROLL-STOP DETECTION ─────────────────────────────
 let scrollStopTimer = null;
-let lastScrollY = window.scrollY;
-let isScrolling = false;
 let currentVisibleSection = null;
 const spokenSections = new Set();
 
-// Track which section is currently most visible
 const sectionVisibilityObs = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
@@ -1492,35 +1646,37 @@ Object.keys(SECTION_SCRIPTS).forEach(id => {
   if (el) sectionVisibilityObs.observe(el);
 });
 
-// Listen for scroll events
 window.addEventListener('scroll', () => {
-  isScrolling = true;
-  // Cancel any pending speak-on-stop
+  const now     = Date.now();
+  const curY    = window.scrollY;
+  const speed   = Math.abs(curY - prevScrollY) / Math.max(1, now - prevScrollTime); // px/ms
+
+  // Fast scroll → show trust banner only (no voice)
+  if (speed > 1.8) {
+    showFastScrollBanner();
+  }
+
+  prevScrollY = curY;
+  prevScrollTime = now;
+
   clearTimeout(scrollStopTimer);
-  // Cancel current speech while scrolling
   if (synth && synth.speaking) synth.cancel();
 
-  // After scroll stops for 900ms → speak current section
+  // After scroll stops → speak current section
   scrollStopTimer = setTimeout(() => {
-    isScrolling = false;
     const id = currentVisibleSection;
     if (!id || !SECTION_SCRIPTS[id] || isMuted) return;
     if (spokenSections.has(id)) return;
     spokenSections.add(id);
     speakText(SECTION_SCRIPTS[id]);
-  }, 900);
+  }, 950);
 
-  // Reset spoken flag when user scrolls away from a section
-  // (so revisiting a section re-triggers)
-  lastScrollY = window.scrollY;
 }, { passive: true });
 
-// Reset spoken state when section leaves viewport
+// Reset spoken when section leaves viewport (so re-visiting re-triggers)
 const resetObs = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if (!entry.isIntersecting) {
-      spokenSections.delete(entry.target.id);
-    }
+    if (!entry.isIntersecting) spokenSections.delete(entry.target.id);
   });
 }, { threshold: 0.05 });
 
@@ -1528,6 +1684,33 @@ Object.keys(SECTION_SCRIPTS).forEach(id => {
   const el = document.getElementById(id);
   if (el) resetObs.observe(el);
 });
+
+// ══════════════════════════════════════════════════════
+// ── FORM SUBMIT — THANK YOU VOICE + TOAST ─────────────
+// ══════════════════════════════════════════════════════
+
+(function patchFormForVoice(){
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  form.addEventListener('submit', function() {
+    // After a short delay (let existing submit logic run), speak thank you
+    setTimeout(() => {
+      speakText([
+        "Thank you so much for contacting us!",
+        "We have received your message and will get back to you very soon.",
+        "We look forward to working with you. Please visit us again next time!"
+      ]);
+      showThankYouToastEnhanced();
+    }, 1200);
+  });
+})();
+
+function showThankYouToastEnhanced() {
+  const toast = document.getElementById('thankYouToast');
+  if (!toast) return;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 7000);
+}
 
 // ── MUTE BUTTON ───────────────────────────────────────
 muteBtn.addEventListener('click', () => {
