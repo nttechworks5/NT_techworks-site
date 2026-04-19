@@ -513,21 +513,13 @@
   .team-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
   .team-grid .team-card:first-child { grid-column: 1 / -1; }
   .team-grid .team-card:nth-child(n+2) { grid-column: span 2; }
-  .team-card { text-align: center; padding: 36px 24px 28px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--border); transition: all .35s ease; height: 100%; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+  /* ✅ Team cards are NOT clickable anymore — pointer changed */
+  .team-card { text-align: center; padding: 36px 24px 28px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--border); transition: all .35s ease; height: 100%; display: flex; flex-direction: column; align-items: center; cursor: default; }
   .team-card:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: var(--glow); background: rgba(0,212,255,.04); }
   .team-avatar { width: 90px; height: 90px; border-radius: 16px; margin: 0 auto 18px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; border: 2px solid rgba(0,212,255,.15); background: linear-gradient(135deg, rgba(0,212,255,.08), rgba(124,58,237,.08)); }
   .team-name { font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; margin-bottom: 4px; }
   .team-role { font-size: .82rem; color: var(--accent); font-weight: 600; margin-bottom: 12px; }
   .team-desc { font-size: .82rem; color: var(--muted); line-height: 1.7; margin-bottom: 14px; }
-  .team-portfolio-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-family: var(--font-head); font-size: .74rem; font-weight: 700;
-    color: var(--accent); border: 1px solid rgba(52,213,255,.25);
-    padding: 6px 14px; border-radius: 999px;
-    background: rgba(52,213,255,.06);
-    transition: all .2s; margin-top: auto;
-  }
-  .team-card:hover .team-portfolio-link { background: rgba(52,213,255,.12); border-color: var(--accent); }
 
   /* ── WHY US ── */
   #why { background: var(--bg); }
@@ -747,7 +739,7 @@
     .project-footer{ padding: 9px 10px; }
     .project-title { font-size: .78rem; }
     .project-skill { font-size: .58rem; padding: 4px 7px; }
-    .project-link  { font-size: .72rem; }
+        .project-link  { font-size: .72rem; }
     .project-badge { font-size: .54rem; padding: 4px 9px; top:9px; left:9px; }
     .team-card { padding: 18px 10px 14px; }
     .team-avatar { width: 62px; height: 62px; font-size: 1.4rem; margin-bottom: 12px; }
@@ -961,6 +953,7 @@
     <h2 class="section-title reveal">Meet the <span class="grad-text">Team</span></h2>
     <p class="section-sub reveal">A dedicated squad of creative minds working together to deliver excellence.</p>
     <div class="team-grid" id="teamGrid"></div>
+    <!-- ✅ "View Full Team Portfolio" button kept here only -->
     <div style="text-align:center;margin-top:36px;" class="reveal">
       <a href="portfolio.html" class="btn btn-primary" style="font-size:.9rem;padding:14px 36px;">View Full Team Portfolio ↗</a>
     </div>
@@ -1209,11 +1202,11 @@
 
 <script>
 // ════════════════════════════════════════════════
-// ✅ EMAILJS CONFIG — உன் keys இங்க போடு
+// ✅ EMAILJS CONFIG — Keys set!
 // ════════════════════════════════════════════════
-const EJ_SERVICE  = "service_xxxxxxx";   // 👈 உன் EmailJS Service ID
-const EJ_TEMPLATE = "template_xxxxxxx";  // 👈 உன் EmailJS Template ID
-const EJ_KEY      = "xxxxxxxxxxxxxxx";   // 👈 உன் EmailJS Public Key
+const EJ_SERVICE  = "service_cmg0v7y";
+const EJ_TEMPLATE = "template_8n1lrmq";
+const EJ_KEY      = "QdFmKE3gWfzaFPQgO";
 
 emailjs.init(EJ_KEY);
 // ════════════════════════════════════════════════
@@ -1267,7 +1260,9 @@ const PROJECTS = [
     thumbClass:'thumb-portfolio', badgeClass:'badge-portfolio', badgeLabel:'🎨 Portfolio',
     img:'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=80',
     alt:'Portfolio website', title:'Team Portfolio',
-    techs:['HTML','CSS','JavaScript','React'], live:'portfolio.html'
+    techs:['HTML','CSS','JavaScript','React'],
+    // ✅ Portfolio project — direct link to portfolio.html
+    live:'portfolio.html', isLocal:true
   },
   {
     thumbClass:'thumb-edtech', badgeClass:'badge-edtech', badgeLabel:'📚 EdTech',
@@ -1336,26 +1331,28 @@ function renderProjects() {
       <div class="project-footer">
         ${p.comingSoon
           ? `<span class="project-link coming-soon">🔜 Link Coming Soon</span>`
-          : `<a href="${p.live}" ${p.live !== '#' ? 'target="_blank"' : ''} class="project-link">View Live <span class="project-link-arrow">→</span></a>`
+          : p.isLocal
+            ? `<a href="${p.live}" class="project-link">View Live <span class="project-link-arrow">→</span></a>`
+            : `<a href="${p.live}" ${p.live !== '#' ? 'target="_blank"' : ''} class="project-link">View Live <span class="project-link-arrow">→</span></a>`
         }
       </div>
     </div>`).join('');
 }
 
+// ✅ Team render — NO "View Portfolio →" button inside each card
 function renderTeam() {
   document.getElementById('teamGrid').innerHTML = TEAM.map((m,i) => `
-    <div class="team-card reveal" style="transition-delay:${i*.08}s" onclick="window.location.href='portfolio.html'">
+    <div class="team-card reveal" style="transition-delay:${i*.08}s">
       <div class="team-avatar">${m.emoji}</div>
       <div class="team-name">${m.name}</div>
       <div class="team-role">${m.role}</div>
       <div class="team-desc">${m.desc}</div>
-      <span class="team-portfolio-link">View Portfolio →</span>
     </div>`).join('');
 }
 
 function renderWhy() {
   document.getElementById('whyGrid').innerHTML = WHY.map((w,i) => `
-    <div class="why-card reveal" style="transition-delay:${i*.07}s">
+    <div class="why-card reveal" style="transition-delay:${w*.07}s">
       <div class="why-icon">${w.icon}</div>
       <div class="why-text"><h4>${w.title}</h4><p>${w.desc}</p></div>
     </div>`).join('');
@@ -1473,22 +1470,25 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
 
   emailjs.send(EJ_SERVICE, EJ_TEMPLATE, templateParams)
     .then(() => {
-      // ✅ SUCCESS
-      btn.style.display      = 'none';
+      // ✅ SUCCESS — show message + voice greeting + toast
+      btn.style.display       = 'none';
       successEl.style.display = 'flex';
       this.reset();
 
+      // ✅ Voice greeting after form submit
       speakText([
         "Thank you so much for contacting us!",
         "We have received your message and will get back to you very soon.",
         "We look forward to working with you. Please visit us again!"
       ]);
+
+      // ✅ Toast notification
       showThankYouToast();
 
       setTimeout(() => {
-        btn.style.display      = 'flex';
-        btn.textContent        = 'Send Message ✈';
-        btn.disabled           = false;
+        btn.style.display       = 'flex';
+        btn.textContent         = 'Send Message ✈';
+        btn.disabled            = false;
         successEl.style.display = 'none';
       }, 5000);
     })
@@ -1511,8 +1511,8 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
 let isMuted = false;
 let voiceUnlocked = false;
 
-const muteBtn       = document.getElementById('voiceMuteBtn');
-const rippleEl      = document.getElementById('voiceRipple');
+const muteBtn           = document.getElementById('voiceMuteBtn');
+const rippleEl          = document.getElementById('voiceRipple');
 const voiceUnlockBanner = document.getElementById('voiceUnlockBanner');
 const welcomeOverlay    = document.getElementById('welcomeOverlay');
 
@@ -1659,7 +1659,7 @@ const SECTION_SCRIPTS = {
   team: [
     "Meet our team.",
     "Niranjan, Gowtham, Mahesh, Harisudhan, and Dhanush.",
-    "Click on any team member to view their individual portfolio and works."
+    "Click the View Full Team Portfolio button below to see each member's individual work."
   ],
   process: [
     "This is how we work.",
