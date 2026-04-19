@@ -9,9 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
 
-<!-- ✅ EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
 <style>
   :root {
     --bg:        #070b1f;
@@ -512,12 +509,14 @@
   #team { background: var(--bg2); }
   .team-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
   .team-grid .team-card:first-child { grid-column: 1 / -1; }
-  .team-grid .team-card:nth-child(n+2) { grid-column: span 2; }
-  /* ✅ Team cards are NOT clickable anymore — pointer changed */
+  .team-grid .team-card:nth-child(n+2):nth-child(-n+5) { grid-column: span 2; }
+  /* Last card (6th = G.kumaran) spans full width centered */
+  .team-grid .team-card:last-child { grid-column: 2 / 4; }
   .team-card { text-align: center; padding: 36px 24px 28px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--border); transition: all .35s ease; height: 100%; display: flex; flex-direction: column; align-items: center; cursor: default; }
   .team-card:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: var(--glow); background: rgba(0,212,255,.04); }
   .team-avatar { width: 90px; height: 90px; border-radius: 16px; margin: 0 auto 18px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; border: 2px solid rgba(0,212,255,.15); background: linear-gradient(135deg, rgba(0,212,255,.08), rgba(124,58,237,.08)); }
   .team-name { font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; margin-bottom: 4px; }
+  .team-degree { font-size: .72rem; color: var(--muted); font-weight: 500; margin-bottom: 4px; letter-spacing: .02em; line-height: 1.5; }
   .team-role { font-size: .82rem; color: var(--accent); font-weight: 600; margin-bottom: 12px; }
   .team-desc { font-size: .82rem; color: var(--muted); line-height: 1.7; margin-bottom: 14px; }
 
@@ -648,9 +647,11 @@
     .about-content { grid-template-columns: 1fr; gap: 36px; }
     .about-img-box { height: 320px; max-width: 520px; margin: 0 auto; }
     .skills-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .projects-grid, .team-grid, .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .projects-grid, .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
     .team-grid .team-card:first-child { grid-column: 1 / -1; }
-    .team-grid .team-card:nth-child(n+2) { grid-column: span 1; }
+    .team-grid .team-card:nth-child(n+2):nth-child(-n+5) { grid-column: span 1; }
+    .team-grid .team-card:last-child { grid-column: 1 / -1; max-width: 380px; margin: 0 auto; }
     .testi-grid { grid-template-columns: 1fr 1fr; }
     .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
   }
@@ -692,7 +693,11 @@
     .contact-form-title { font-size: 1.12rem; margin-bottom: 16px; text-align: center; }
     .contact-submit-btn { padding: 12px; font-size: .86rem; }
     .about-img-box { height: 280px; max-width: 100%; margin: 0 auto; }
-    .skills-grid, .projects-grid, .team-grid, .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .skills-grid, .projects-grid, .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .team-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .team-grid .team-card:first-child { grid-column: 1 / -1; }
+    .team-grid .team-card:nth-child(n+2):nth-child(-n+5) { grid-column: span 1; }
+    .team-grid .team-card:last-child { grid-column: 1 / -1; max-width: 320px; margin: 0 auto; }
     .service-card { padding: 22px 16px; }
     .projects-grid { gap: 14px; }
     .project-thumb { height: 148px; }
@@ -722,7 +727,11 @@
     .hero-btns  { flex-direction: column; }
     .btn        { width: 100%; justify-content: center; padding: 12px 24px; }
     .about-img-box { height: 220px; border-radius: 14px; }
-    .skills-grid, .projects-grid, .team-grid, .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .skills-grid, .projects-grid, .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .team-grid { grid-template-columns: 1fr; }
+    .team-grid .team-card:first-child,
+    .team-grid .team-card:nth-child(n+2),
+    .team-grid .team-card:last-child { grid-column: 1 / -1; max-width: 100%; }
     .contact-grid { gap: 20px; }
     .social-row { grid-template-columns: 1fr; }
     .social-btn { width: 100%; }
@@ -738,7 +747,7 @@
     .project-body  { padding: 10px; gap: 7px; }
     .project-footer{ padding: 9px 10px; }
     .project-title { font-size: .78rem; }
-    .project-skill { font-size: .58rem; padding: 4px 7px; }
+        .project-skill { font-size: .58rem; padding: 4px 7px; }
         .project-link  { font-size: .72rem; }
     .project-badge { font-size: .54rem; padding: 4px 9px; top:9px; left:9px; }
     .team-card { padding: 18px 10px 14px; }
@@ -953,7 +962,6 @@
     <h2 class="section-title reveal">Meet the <span class="grad-text">Team</span></h2>
     <p class="section-sub reveal">A dedicated squad of creative minds working together to deliver excellence.</p>
     <div class="team-grid" id="teamGrid"></div>
-    <!-- ✅ "View Full Team Portfolio" button kept here only -->
     <div style="text-align:center;margin-top:36px;" class="reveal">
       <a href="portfolio.html" class="btn btn-primary" style="font-size:.9rem;padding:14px 36px;">View Full Team Portfolio ↗</a>
     </div>
@@ -1113,18 +1121,18 @@
         <h3>Contact Information</h3>
         <p>We're always happy to discuss your project requirements. Get in touch today!</p>
         <div class="contact-items">
-          <a href="tel:9087053794" class="contact-item">
+          <a href="tel:6374462276" class="contact-item">
             <div class="contact-item-icon">📞</div>
             <div class="contact-item-text">
               <div class="contact-item-label">Phone</div>
-              <div class="contact-item-value">9087053794</div>
+              <div class="contact-item-value">6374462276</div>
             </div>
           </a>
-          <a href="tel:96267822799" class="contact-item">
-            <div class="contact-item-icon">📞</div>
+          <a href="https://wa.me/919843336980" target="_blank" class="contact-item">
+            <div class="contact-item-icon">💬</div>
             <div class="contact-item-text">
-              <div class="contact-item-label">Phone</div>
-              <div class="contact-item-value">96267822799</div>
+              <div class="contact-item-label">WhatsApp</div>
+              <div class="contact-item-value">9843336980</div>
             </div>
           </a>
           <a href="mailto:nttechworks5@gmail.com" class="contact-item">
@@ -1158,7 +1166,7 @@
             <textarea id="fmsg" rows="4" placeholder="Tell us about your project…" required></textarea>
           </div>
           <div class="form-success" id="formSuccess">✅ Message sent! We'll get back to you shortly.</div>
-          <div class="form-error" id="formError">❌ Failed to send. Please try again or contact us directly.</div>
+          <div class="form-error"   id="formError">❌ Something went wrong. Please try emailing us directly at nttechworks5@gmail.com</div>
           <button type="submit" class="btn btn-primary contact-submit-btn">Send Message ✈</button>
         </form>
       </div>
@@ -1201,16 +1209,6 @@
 <button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
 <script>
-// ════════════════════════════════════════════════
-// ✅ EMAILJS CONFIG — Keys set!
-// ════════════════════════════════════════════════
-const EJ_SERVICE  = "service_cmg0v7y";
-const EJ_TEMPLATE = "template_8n1lrmq";
-const EJ_KEY      = "QdFmKE3gWfzaFPQgO";
-
-emailjs.init(EJ_KEY);
-// ════════════════════════════════════════════════
-
 // ── DATA ──
 const SKILLS = [
   { icon:'🌐', name:'HTML & CSS',             pct:95 },
@@ -1261,7 +1259,6 @@ const PROJECTS = [
     img:'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=80',
     alt:'Portfolio website', title:'Team Portfolio',
     techs:['HTML','CSS','JavaScript','React'],
-    // ✅ Portfolio project — direct link to portfolio.html
     live:'portfolio.html', isLocal:true
   },
   {
@@ -1278,12 +1275,14 @@ const PROJECTS = [
   },
 ];
 
+// ✅ UPDATED TEAM — G.kumaran added as 6th member (last, standalone card)
 const TEAM = [
-  { emoji:'🎯', name:'Niranjan M',   role:'Founder / Frontend Developer', desc:'Modern responsive websites with clean, performant code.' },
-  { emoji:'🎨', name:'Gowtham',      role:'UI/UX Designer',               desc:'Premium design + AI-integrated UI for stunning interfaces.' },
-  { emoji:'🔬', name:'Mahesh Kumar', role:'Tester',                       desc:'Quality assurance and bug testing for production-ready sites.' },
-  { emoji:'⚙️', name:'Harisudhan',   role:'Backend Developer',             desc:'Secure, scalable backend systems and robust APIs.' },
-  { emoji:'🖥️', name:'Dhanush',     role:'Frontend Developer',            desc:'Responsive UI and smooth interactions across all devices.' },
+  { emoji:'🎯', name:'Niranjan M',   role:'Founder / Frontend Developer', degree:'', desc:'Modern responsive websites with clean, performant code.' },
+  { emoji:'🎨', name:'Gowtham',      role:'UI/UX Designer',               degree:'', desc:'Premium design + AI-integrated UI for stunning interfaces.' },
+  { emoji:'🔬', name:'Mahesh Kumar', role:'Tester',                       degree:'', desc:'Quality assurance and bug testing for production-ready sites.' },
+  { emoji:'⚙️', name:'Harisudhan',   role:'Backend Developer',            degree:'', desc:'Secure, scalable backend systems and robust APIs.' },
+  { emoji:'🖥️', name:'Dhanush',     role:'Frontend Developer',            degree:'', desc:'Responsive UI and smooth interactions across all devices.' },
+  { emoji:'📣', name:'G. Kumaran',   role:'Digital Marketing Expert',     degree:'D.Ted, B.Sc, B.Ed, M.Sc, M.S.E, M.L.I.S', desc:'Driving reach, growth, and brand visibility through strategic digital marketing.' },
 ];
 
 const WHY = [
@@ -1339,12 +1338,13 @@ function renderProjects() {
     </div>`).join('');
 }
 
-// ✅ Team render — NO "View Portfolio →" button inside each card
+// ✅ Team render — degree shown if present; last card gets special class
 function renderTeam() {
-  document.getElementById('teamGrid').innerHTML = TEAM.map((m,i) => `
+  document.getElementById('teamGrid').innerHTML = TEAM.map((m, i) => `
     <div class="team-card reveal" style="transition-delay:${i*.08}s">
       <div class="team-avatar">${m.emoji}</div>
       <div class="team-name">${m.name}</div>
+      ${m.degree ? `<div class="team-degree">${m.degree}</div>` : ''}
       <div class="team-role">${m.role}</div>
       <div class="team-desc">${m.desc}</div>
     </div>`).join('');
@@ -1352,7 +1352,7 @@ function renderTeam() {
 
 function renderWhy() {
   document.getElementById('whyGrid').innerHTML = WHY.map((w,i) => `
-    <div class="why-card reveal" style="transition-delay:${w*.07}s">
+    <div class="why-card reveal" style="transition-delay:${i*.07}s">
       <div class="why-icon">${w.icon}</div>
       <div class="why-text"><h4>${w.title}</h4><p>${w.desc}</p></div>
     </div>`).join('');
@@ -1447,37 +1447,64 @@ window.addEventListener('resize', () => { if (window.innerWidth > 768 && mob.cla
 function closeMobile() { setMobileMenu(false); }
 
 // ════════════════════════════════════════════════
-// ✅ CONTACT FORM — EmailJS Integration
+// ✅ CONTACT FORM — Web3Forms (free, no SDK, direct email)
+//    Admin gets email at nttechworks5@gmail.com
+//    User sees greeting + voice plays
 // ════════════════════════════════════════════════
-document.getElementById('contactForm').addEventListener('submit', function(e) {
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
   e.preventDefault();
 
   const btn       = this.querySelector('button[type=submit]');
   const successEl = document.getElementById('formSuccess');
   const errorEl   = document.getElementById('formError');
+  const form      = this;
 
-  // Reset states
   successEl.style.display = 'none';
   errorEl.style.display   = 'none';
-  btn.textContent  = 'Sending…';
-  btn.disabled     = true;
 
-  const templateParams = {
-    from_name : document.getElementById('fname').value.trim(),
-    reply_to  : document.getElementById('femail').value.trim(),
-    message   : document.getElementById('fmsg').value.trim()
-  };
+  const name    = document.getElementById('fname').value.trim();
+  const email   = document.getElementById('femail').value.trim();
+  const message = document.getElementById('fmsg').value.trim();
 
-  emailjs.send(EJ_SERVICE, EJ_TEMPLATE, templateParams)
-    .then(() => {
-      // ✅ SUCCESS — show message + voice greeting + toast
+  if (!name || !email || !message) {
+    errorEl.textContent      = '❌ Please fill in all required fields.';
+    errorEl.style.display    = 'flex';
+    return;
+  }
+
+  btn.disabled    = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    // Web3Forms free API — delivers directly to nttechworks5@gmail.com
+    // Get your free access key at https://web3forms.com (takes 30 seconds)
+    // Replace the access_key below with your key from Web3Forms
+    const formData = new FormData();
+    formData.append('access_key',  'YOUR_WEB3FORMS_ACCESS_KEY'); // ← Replace this
+    formData.append('subject',     'New Enquiry from ' + name + ' — NT TechWorks Website');
+    formData.append('from_name',   'NT TechWorks Contact Form');
+    formData.append('replyto',     email);
+    formData.append('name',        name);
+    formData.append('email',       email);
+    formData.append('message',     message);
+    formData.append('botcheck',    ''); // honeypot
+
+    const res  = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body:   formData
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      // ✅ SUCCESS
       btn.style.display       = 'none';
+      successEl.textContent   = '✅ Thank you, ' + name + '! We received your message and will get back to you very soon!';
       successEl.style.display = 'flex';
-      this.reset();
+      form.reset();
 
-      // ✅ Voice greeting after form submit
+      // ✅ Voice greeting to user
       speakText([
-        "Thank you so much for contacting us!",
+        "Thank you so much, " + name + ", for contacting us!",
         "We have received your message and will get back to you very soon.",
         "We look forward to working with you. Please visit us again!"
       ]);
@@ -1490,20 +1517,20 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
         btn.textContent         = 'Send Message ✈';
         btn.disabled            = false;
         successEl.style.display = 'none';
-      }, 5000);
-    })
-    .catch((err) => {
-      // ❌ ERROR
-      console.error('EmailJS Error:', err);
-      errorEl.style.display = 'flex';
-      btn.textContent       = 'Try Again ↺';
-      btn.disabled          = false;
+      }, 6000);
 
-      setTimeout(() => {
-        errorEl.style.display = 'none';
-        btn.textContent       = 'Send Message ✈';
-      }, 5000);
-    });
+    } else {
+      throw new Error(data.message || 'Submission failed');
+    }
+
+  } catch (err) {
+    console.error('Form error:', err);
+    errorEl.textContent   = '❌ Failed to send. Please email us directly at nttechworks5@gmail.com';
+    errorEl.style.display = 'flex';
+    btn.textContent       = 'Try Again ↺';
+    btn.disabled          = false;
+    setTimeout(() => { errorEl.style.display = 'none'; btn.textContent = 'Send Message ✈'; }, 6000);
+  }
 });
 // ════════════════════════════════════════════════
 
@@ -1658,7 +1685,7 @@ const SECTION_SCRIPTS = {
   ],
   team: [
     "Meet our team.",
-    "Niranjan, Gowtham, Mahesh, Harisudhan, and Dhanush.",
+    "Niranjan, Gowtham, Mahesh, Harisudhan, Dhanush, and G. Kumaran — our Digital Marketing Expert.",
     "Click the View Full Team Portfolio button below to see each member's individual work."
   ],
   process: [
@@ -1685,7 +1712,7 @@ const SECTION_SCRIPTS = {
   ],
   contact: [
     "You are in the Contact section.",
-    "You can call us, send an email, or fill in the form right here.",
+    "You can call us, send a WhatsApp message, or fill in the form right here.",
     "The first consultation is completely free — no charges, no commitment.",
     "We would love to hear about your project. Reach out today!"
   ]
