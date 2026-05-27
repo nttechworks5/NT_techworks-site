@@ -590,7 +590,7 @@
     .container { padding: 0 16px; }
     .nav-logo { font-size: .88rem; }
     .hero-title { font-size: 1.85rem; }
-    .section-title { font-size: 1.2rem; }
+    .section-title { font-size: 1.2rem;margin-top: 20px; }
     .hero-sub, .section-sub { font-size: .95rem; }
     .hero-stats { gap: 16px; flex-direction: column; align-items: center; }
     .hero-btns  { flex-direction: column; }
